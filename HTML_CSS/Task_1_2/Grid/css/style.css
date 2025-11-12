@@ -1,0 +1,113 @@
+/* global styles */
+:root {
+    --header-color: #ea5e32;
+    --navigation-color: #ffb40a;
+    --related-links-color: #ffd36f;
+    --main-color: #ffffff;
+    --footer-color: #a82800;
+    --font-family: "Roboto", sans-serif;
+}
+
+/* body styles */
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto 2fr auto;
+    grid-template-rows: auto 1fr auto;
+    row-gap: 20px;
+    column-gap: 50px;
+}
+
+/* header styles */
+header {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    background-color: var(--header-color);
+    padding: 30px;
+    text-align: center;
+    color: white;
+}
+
+/* navigation styles  */
+nav {
+    background-color: var(--navigation-color);
+    grid-column: 1;
+    grid-row: 2;
+    padding: 30px;
+    border-radius: 0 20px 20px 0;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+/* main styles */
+main {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* related links styles */
+aside{
+    background-color: var(--related-links-color);
+    grid-column: 3;
+    grid-row: 2;
+    padding: 30px;
+    border-radius: 20px 0 0 20px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+/* footer styles */
+footer {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    background-color: var(--footer-color);
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+/* media queries */
+@media (max-width: 768px) {
+
+    body {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+        row-gap: 0px;
+    }
+
+    header {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    nav {
+        grid-column: 1;
+        grid-row: 2;
+        border-radius: 0 0 20px 20px;
+        padding: 10px;
+    }
+
+    main {
+        grid-column: 1;
+        grid-row: 3;
+        padding: 20px 40px;
+    }
+
+    aside {
+        grid-column: 1;
+        grid-row: 4;
+        border-radius: 20px 20px 0 0;
+        padding: 10px;
+    }
+
+    footer {
+        grid-column: 1 / -1;
+        grid-row: 5;
+    }
+}
