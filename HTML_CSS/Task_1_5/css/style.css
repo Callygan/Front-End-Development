@@ -1,0 +1,56 @@
+:root {
+    --spring-color: #00cc39;
+    --summer-color: #f19f00;
+    --autumn-color: #d64200;
+    --winter-color: #0057ff;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.panel {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.panel h1 {
+    font-size: 20vw;
+    font-weight: 800;
+    opacity: 0.1;
+    margin: 0;
+    line-height: 1;
+    pointer-events: none;
+    text-transform: uppercase;
+    grid-area: 1 / 1;
+    align-self: end;
+    margin-bottom: 8vh;
+}
+
+.panel img {
+    grid-area: 1 / 1;
+    align-self: center;
+    justify-self: center;
+    width: 30vw;
+    max-width: 350px;
+}
+
+.panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    z-index: -1;
+    transform: translateY(0);
+    transition: transform 0.2s linear;
+}
+
+.spring { background-color: var(--spring-color); }
+.summer { background-color: var(--summer-color); }
+.autumn { background-color: var(--autumn-color); }
+.winter { background-color: var(--winter-color); }
