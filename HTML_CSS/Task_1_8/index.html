@@ -10,17 +10,25 @@
 </head>
 <body>
     <header>
-
         <div class="nav-bar">
-            <img src="images/logo.png" alt="Logo">
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
+            <a href="#menu" class="logo"><img src="images/logo.png" alt="Logo"></a>
+            <nav class="desktop-nav">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact Us</a>
             </nav>
         </div>
+
+        <!-- Responsive Menu -->
+        <div id="menu" class="mobile-menu">
+            <a href="#menu" class="logo"><img src="images/logo.png" alt="Logo"></a>
+            <a href="#" class="menu-item">Home</a>
+            <a href="#" class="menu-item">About</a>
+            <a href="#" class="menu-item">Contact Us</a>
+            <a href="#close-menu" id="close-menu" class="close-menu"></a>
+        </div>
+
+        <div id="menu-blur"></div>
 
         <section class="hero-section">
             <h1>New E-commerce App best for You</h1>
@@ -31,7 +39,6 @@
                 <a href="/" tabIndex="0"><img class="bn46" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"alt="bn45"/></a>
             </div>
         </section>
-
     </header>
 
     <main>
@@ -83,14 +90,51 @@
             <div class="testimonial-image">
                 <img src="images/fox_4.png" alt="">
             </div>
-            <div class="tesimonial-content">
-                <img src="images/quote.png" alt="Quotes">
+
+            <div class="carousel">
+                <ol class="carousel__viewport">
+                    <li id="carousel__slide1" tabindex="0" class="carousel__slide">
+                        <img src="images/quote.png" alt="Quotes">
+                        <p>Amet in elementum nulla scelerisque dui, egestas at. Elit consectetur turpis elementum amet vitae et etiam nec. Varius volutpat hac adipiscing tincidunt pretium.</p>
+                        <h4>Foxy 1</h4>
+                        <div class="carousel__snapper">
+                            <a href="#carousel__slide3" class="carousel__prev">Go to last slide</a>
+                            <a href="#carousel__slide2" class="carousel__next">Go to next slide</a>
+                        </div>
+                    </li>
+
+                    <li id="carousel__slide2" tabindex="0" class="carousel__slide">
+                        <img src="images/quote.png" alt="Quotes">
+                        <p>Amet in elementum nulla scelerisque dui, egestas at. Elit consectetur turpis elementum amet vitae et etiam nec. Varius volutpat hac adipiscing tincidunt pretium.</p>
+                        <h4>Foxy 2</h4>
+                        <div class="carousel__snapper">
+                            <a href="#carousel__slide1" class="carousel__prev">Go to last slide</a>
+                            <a href="#carousel__slide3" class="carousel__next">Go to next slide</a>
+                        </div>
+                    </li>
+
+                    <li id="carousel__slide3" tabindex="0" class="carousel__slide">
+                        <img src="images/quote.png" alt="Quotes">
+                        <p>Amet in elementum nulla scelerisque dui, egestas at. Elit consectetur turpis elementum amet vitae et etiam nec. Varius volutpat hac adipiscing tincidunt pretium.</p>
+                        <h4>Foxy 3</h4>
+                        <div class="carousel__snapper">
+                            <a href="#carousel__slide2" class="carousel__prev">Go to last slide</a>
+                            <a href="#carousel__slide1" class="carousel__next">Go to next slide</a>
+                        </div>
+                    </li>
+                </ol>
+
+
+
+                <!-- <img src="images/quote.png" alt="Quotes">
                 <p>Amet in elementum nulla scelerisque dui, egestas at. Elit consectetur turpis elementum amet vitae et etiam nec. Varius volutpat hac adipiscing tincidunt pretium.</p>
                 <h4>Foxy</h4>
                 <div>
                     <button></button>
                     <button></button>
-                </div>
+                </div> -->
+
+
             </div>
         </section>
 
