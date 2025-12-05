@@ -183,6 +183,14 @@ header {
     gap: 20px;
 }
 
+  .desktop-link-btn {
+    display: none;
+  }
+
+  .mobile-link-btn {
+    display: block;
+  }
+
 .google-play-btn {
   width: 190px;
   height: 60px;
@@ -739,6 +747,14 @@ footer > p {
 
   .desktop-nav a:hover {
     color: var(--primary-color);
+  }
+
+  .desktop-link-btn {
+    display: block;
+  }
+
+  .mobile-link-btn {
+    display: none;
   }
 
 
