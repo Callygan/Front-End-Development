@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Sorting Algorithms Learning</title>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Sorting Algorithms Learning</h1>
+        
+        <div class="controls">
+            <button class="secondary" onclick="generateNewArray()">🔄 Generate New Array</button>
+            <button class="secondary" onclick="clearAllResults()">🗑️ Clear Results</button>
+        </div>
+        
+        <div class="original-array">
+            <h2>📋 Original Array (50+ elements):</h2>
+            <div class="array-display" id="originalArray"></div>
+        </div>
+        
+        <div class="algorithms" id="algorithmsContainer"></div>
+    </div>
+
+    <script src="js/sorting.js"></script>
+    
+    <script>
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            generateNewArray();
+            renderAlgorithms();
+        });
+    </script>
+</body>
+</html>
