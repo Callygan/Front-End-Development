@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #dadada;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container Styles */
+.container {
+    width: 400px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 16px;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Logo Styles */
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ff3d00;
+}
+
+.word {
+    color: #ffffff;
+    background: #ff3d00;
+}
+
+
+/* Input Styles */
+.location {
+    margin-bottom: 20px;
+}
+
+.location input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.location input:focus {
+    box-shadow: 0 0 0 2px rgba(255, 61, 0, 0.3);
+}
+
+/* Current Weather Styles */
+.current-weather {
+    margin-bottom: 20px;
+}
+
+.current-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ff3d00;
+    color: white;
+    border-radius: 16px;
+    padding: 10px 20px;
+    animation: slideUp 0.9s ease; 
+}
+
+.current-card h1 {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.current-card p {
+    font-size: 16px;
+    margin-top: 4px;
+}
+
+.current-location {
+    text-align: center;
+}
+
+.weather-icon img {
+    width: 100px;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Five Day Forecast Styles */
+.five-day-weather {
+    display: flex;
+    flex-direction: column;
+}
+
+.day-weather {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: #dddddd 1px solid;
+    padding: 5px 0;
+}
+
+.day {
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.daily-icon img {
+    width: 73px;
+}
+
+.weather-condition {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.daily-temperature {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.day-night {
+    font-size: 9px;
+    font-weight: 300;
+}
+
+.details {
+    text-align: right;
+    font-size: 13px;
+}
+
+.details span {
+    display: block;
+    color: #555;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
