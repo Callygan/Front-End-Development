@@ -43,6 +43,11 @@ body {
     border: none
 }
 
+.todo-header input:focus {
+    border: none;
+    outline: none;
+}
+
 .todo-header button {
     padding: 10px 16px;
     background: #00ae1c;

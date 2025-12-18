@@ -26,12 +26,17 @@ function renderTodos() {
         <input type="checkbox" ${todo.completed ? "checked" : ""}>
         <span class="text" contenteditable="true">${todo.text}</span>
         <div class="actions">
+            <button class="modify"><img src="images/rename-icon.png" alt="Trash Icon"></button>
+            <button class="check" style="display: none;"><img src="images/check-icon.png" alt="Check Icon"></button>
             <button class="delete"><img src="images/trash-icon.png" alt="Trash Icon"></button>
         </div>
         `;
 
+        // Select elements
         const checkbox = li.querySelector("input");
         const text = li.querySelector(".text");
+        const modifyBtn = li.querySelector(".modify");
+        const checkBtn = li.querySelector(".check");
         const delBtn = li.querySelector(".delete");
 
         // Event listeners
@@ -41,15 +46,35 @@ function renderTodos() {
             renderTodos();
         });
 
-        // Edit text functionality
-        text.addEventListener("blur", () => {
+        // Modify todo functionality
+        modifyBtn.addEventListener("click", () => {
+            text.focus(); // Set focus on the text span
+            const range = document.createRange();
+            const selection = window.getSelection();
+            range.selectNodeContents(text); // Select all text
+            selection.removeAllRanges();
+            selection.addRange(range);
+
+            // Show the "check" button
+            modifyBtn.style.display = "none";
+            delBtn.style.display = "none";
+            checkBtn.style.display = "inline-block";
+        });
+
+        // Confirm modification functionality
+        checkBtn.addEventListener("click", () => {
             const newText = text.textContent.trim();
-            if (newText) {
+            if (newText && newText !== todo.text) {
                 todo.text = newText;
                 saveTodos();
-            } else {
-                text.textContent = todo.text; // Revine la textul anterior dacă este gol
+            } else if (!newText) {
+                text.textContent = todo.text; // Revert to previous text if empty
             }
+
+            // Hide the "check" button and show "modify" button
+            checkBtn.style.display = "none";
+            delBtn.style.display = "inline-block";
+            modifyBtn.style.display = "inline-block";
         });
 
         // Delete todo functionality
@@ -112,6 +137,20 @@ addBtn.addEventListener("click", () => {
     input.value = "";
     saveTodos();
     renderTodos();
+});
+
+// Add new todo on Enter key press
+input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") {
+        const value = input.value.trim();
+        if(!value)
+            return;
+
+        todos.push({ text: value, completed: false });
+        input.value = "";
+        saveTodos();
+        renderTodos();
+    }
 });
 
 // Clear all todos
