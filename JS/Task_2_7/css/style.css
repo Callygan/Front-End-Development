@@ -1,0 +1,131 @@
+:root {
+    --bg-light: #fafafa;
+    --bg-dark: #202c37;
+    --text-light: #111517;
+    --text-dark: #ffffff;
+    --card-light: #ffffff;
+    --card-dark: #2b3945;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+}
+
+body.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    gap: 10px;
+}
+
+.controls input,
+.controls select {
+    padding: 10px;
+    min-width: 200px;
+    border-radius: 10px;
+}
+
+body.dark .controls input,
+body.dark .controls select {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    border: 1px solid #ababab;
+}
+
+.theme {
+  display: flex;
+  width: 70px;
+  height: 30px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-dark);
+  padding: 4px;
+  border-radius: 50px;
+  border: 1px solid #ababab;
+}
+
+.theme-light,
+.theme-dark {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 1%;
+}
+
+.theme-light {
+    background-color: #ff3d00;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.theme-dark {
+    background-color: #2400ff;
+    border-radius: 50px;
+    cursor: pointer;
+    display: none;
+    margin-left: auto;
+}
+
+
+.countries {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.country-card {
+    background-color: var(--card-light);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body.dark .country-card {
+    background-color: var(--card-dark);
+    border: 1px solid #ababab;
+}
+
+.country-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.country-info {
+    padding: 1rem;
+}
+
+.country-info h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+.country-info p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+  }
+}

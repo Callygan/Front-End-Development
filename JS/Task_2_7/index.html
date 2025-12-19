@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>List page of countries</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Where in the world?</h1>
+        <!-- <div class="theme">
+            <button id="themeToggle" class="theme-light"><img src="images/fox-light.png" alt="Fox light"></button>
+            <button id="themeToggle" class="theme-dark"><img src="images/fox-light.png" alt="Fox light"></button>
+        </div> -->
+
+        <div class="theme">
+            <button id="lightBtn" class="theme-light">
+                <img src="images/fox-light.png" alt="Light theme">
+            </button>
+
+            <button id="darkBtn" class="theme-dark">
+                <img src="images/fox-dark.png" alt="Dark theme">
+            </button>
+        </div>
+        
+    </header>
+
+    <section class="controls">
+        <input type="text" id="searchInput" placeholder="Search for a country..."/>
+
+        <select id="regionSelect">
+            <option value="">Region</option>
+            <option value="Americas">America</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europe</option>
+        </select>
+    </section>
+
+    <main>
+        <div id="countriesContainer" class="countries"></div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
