@@ -23,6 +23,7 @@ async function fetchCountries() {
     renderCountries(countriesData);
 }
 
+// Render countries
 function renderCountries(list) {
     countriesContainer.innerHTML = "";
 
