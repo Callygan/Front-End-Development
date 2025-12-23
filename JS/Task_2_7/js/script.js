@@ -88,10 +88,3 @@ regionSelect.addEventListener("change", () => {
 });
 
 fetchCountries();
-
-
-
-
-
-
-
