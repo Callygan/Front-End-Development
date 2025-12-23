@@ -123,6 +123,35 @@ body.dark .country-card {
     font-size: 0.9rem;
 }
 
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.select-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: url("../images/arrow.svg") no-repeat center;
+    background-size: contain;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: transform 0.2s ease;
+}
+
+.select-wrapper.open::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+select {
+    appearance: none;
+    padding-right: 40px;
+}
+
+
 /* Mobile */
 @media (max-width: 600px) {
   .controls {

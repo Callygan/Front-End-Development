@@ -11,7 +11,7 @@
     <header class="header">
         <h1>Where in the world?</h1>
 
-        <div class="theme">
+        <div class="theme" id="theme">
             <button id="lightBtn" class="theme-light">
                 <img src="images/fox-light.png" alt="Light theme">
             </button>
@@ -26,12 +26,14 @@
     <section class="controls">
         <input type="text" id="searchInput" placeholder="Search for a country..."/>
 
-        <select id="regionSelect">
-            <option value="">Region</option>
-            <option value="Americas">America</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europe</option>
-        </select>
+        <div class="select-wrapper" id="regionWrapper">
+            <select id="regionSelect">
+                <option value="" hidden>Region</option>
+                <option value="Americas">America</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+            </select>
+        </div>
     </section>
 
     <main>

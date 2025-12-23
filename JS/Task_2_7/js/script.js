@@ -1,7 +1,8 @@
 const countriesContainer = document.getElementById("countriesContainer");
 const searchInput = document.getElementById("searchInput");
 const regionSelect = document.getElementById("regionSelect");
-const themeToggle = document.getElementById("themeToggle");
+const regionWrapper = document.getElementById("regionWrapper");
+const themeToggle = document.getElementById("theme");
 const lightBtn = document.getElementById("lightBtn");
 const darkBtn = document.getElementById("darkBtn");
 const allowedRegions = ["Americas", "Asia", "Europe"];
@@ -15,7 +16,7 @@ async function fetchCountries() {
     const data = await res.json();
 
     const filteredByRegion = data.filter(country =>
-    allowedRegions.includes(country.region)
+        allowedRegions.includes(country.region)
     );
 
     countriesData = filteredByRegion.slice(0, 20);
@@ -28,20 +29,20 @@ function renderCountries(list) {
     countriesContainer.innerHTML = "";
 
     list.forEach(country => {
-    const card = document.createElement("div");
-    card.className = "country-card";
+        const card = document.createElement("div");
+        card.className = "country-card";
 
-    card.innerHTML = `
-        <img src="${country.flags.svg}" alt="${country.name.common}">
-        <div class="country-info">
-        <h3>${country.name.common}</h3>
-        <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
-        <p><strong>Region:</strong> ${country.region}</p>
-        <p><strong>Capital:</strong> ${country.capital ? country.capital[0] : "N/A"}</p>
-        </div>
-    `;
+        card.innerHTML = `
+            <img src="${country.flags.svg}" alt="${country.name.common}">
+            <div class="country-info">
+                <h3>${country.name.common}</h3>
+                <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
+                <p><strong>Region:</strong> ${country.region}</p>
+                <p><strong>Capital:</strong> ${country.capital ? country.capital[0] : "N/A"}</p>
+            </div>
+            `;
 
-    countriesContainer.appendChild(card);
+        countriesContainer.appendChild(card);
     });
 }
 
@@ -49,33 +50,48 @@ function renderCountries(list) {
 searchInput.addEventListener("input", () => {
     const value = searchInput.value.toLowerCase();
     const filtered = countriesData.filter(c =>
-    c.name.common.toLowerCase().includes(value)
+        c.name.common.toLowerCase().includes(value)
     );
     renderCountries(filtered);
 });
 
 /* Filter by region */
 regionSelect.addEventListener("change", () => {
-    const region = regionSelect.value;
-    if (!region) {
-    renderCountries(countriesData);
+    const selectedRegion = regionSelect.value;
+    if (!selectedRegion) {
+        renderCountries(countriesData);
     } else {
-    const filtered = countriesData.filter(c => c.region === region);
-    renderCountries(filtered);
+        const filtered = countriesData.filter(c => c.region === selectedRegion);
+        renderCountries(filtered);
     }
 });
 
 // Theme toggle implementation
-lightBtn.addEventListener("click", () => {
-    document.body.classList.add("dark");
-    lightBtn.style.display = "none";
-    darkBtn.style.display = "block";
+themeToggle.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+
+    lightBtn.style.display = isDark ? "none" : "block";
+    darkBtn.style.display = isDark ? "block" : "none";
 });
 
-darkBtn.addEventListener("click", () => {
-    document.body.classList.remove("dark");
-    darkBtn.style.display = "none";
-    lightBtn.style.display = "block";
+// Custom select dropdown behavior
+regionSelect.addEventListener("mousedown", () => {
+    regionWrapper.classList.toggle("open");
+});
+
+regionSelect.addEventListener("blur", () => {
+    regionWrapper.classList.remove("open");
+});
+
+regionSelect.addEventListener("change", () => {
+    regionWrapper.classList.remove("open");
 });
 
 fetchCountries();
+
+
+
+
+
+
+
