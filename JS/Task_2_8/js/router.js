@@ -1,37 +1,19 @@
-const routes = {
-    "/": renderHome,
-    "/shop": renderShop,
-    "/about": renderAbout
-};
+import { renderShop } from "./shop.js";
 
 export function router() {
-    const path = location.pathname;
-    router[path]?.();
-}
-
-document.addEventListener("click", e => {
-    const link = e.target.closest("[data-link]");
-    if (!link) return;
-
-    e.preventDefault();
-    history.pushState(null, "", link.href);
-    router();
-});
-
-exort function router() {
-    const app = document.getElementById("app");
     const path = window.location.pathname;
+    const app = document.getElementById("app");
 
     if (path === "/") {
-        app.innerHTML = `<h1>Home</h1>`;
+        app.innerHTML = "<h1>Home</h1>";
     }
 
     if (path === "/shop") {
-        app.innerHTML = `<h1>Shop</h1>`;
+        renderShop();
     }
 
     if (path === "/about") {
-        app.innerHTML = `<h1>Out history</h1>`;
+        app.innerHTML = "<h1>Our history</h1>";
     }
 }
 
