@@ -4,13 +4,13 @@ export const products = [
     title: "Stylish chair",
     price: 50,
     category: "Forest",
-    image: "assets/images/fox1.png"
+    image: "images/fox1.png"
   },
   {
     id: 2,
     title: "Stylish 2",
     price: 70,
     category: "Fox kids",
-    image: "assets/images/fox2.png"
+    image: "images/fox2.png"
   }
 ];
