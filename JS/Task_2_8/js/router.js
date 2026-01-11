@@ -1,19 +1,19 @@
-import { renderShop } from "./shop.js";
+import { renderMain } from "./pages/main.js";
+import { renderShop } from "./pages/shop.js";
+// import { renderAbout } from "./pages/about.js";
+
 
 export function router() {
     const path = window.location.pathname;
-    const app = document.getElementById("app");
-
+    
     if (path === "/") {
-        app.innerHTML = "<h1>Home</h1>";
-    }
-
-    if (path === "/shop") {
+        renderMain();
+    } else if (path === "/shop") {
         renderShop();
-    }
-
-    if (path === "/about") {
-        app.innerHTML = "<h1>Our history</h1>";
+    } else if (path === "/about") {
+        renderAbout();
+    } else {
+        document.getElementById("app").innerHTML = "<h1>404 - Not Found</h1>";
     }
 }
 
