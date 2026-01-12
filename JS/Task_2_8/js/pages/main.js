@@ -5,31 +5,37 @@ export function renderMain() {
         <section class="hero">
             <img class="hero-bg" src="images/hero-fox.png" alt="Hero Fox">
             <div class="hero-content">
-                <h1>Discover foxlife</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur.
-                    Molestie turpis turpis fermentum.
+                <h1 class="hero-title">Discover foxlife</h1>
+                <p class="hero-text">
+                    Lorem ipsum dolor sit amet consectetur. Phar 
+                    eget turpis sem ultricies  dolor sit amet consectetur.
                 </p>
             </div>
         </section>
 
         <section class="features">
             <div class="feature-card">
+                <div class="features-content">
+                    <h3>#Food</h3>
+                    <p>Lorem ipsum dolor sit amet ipsum</p>
+                </div>
                 <img src="images/chicken.png" alt="Chicken">
-                <h3>Food</h3>
-                <p>Lorem ipsum dolor sit amet ipsum</p>
             </div>
 
             <div class="feature-card">
                 <img src="images/rooster.png" alt="Rooster">
-                <h3>Office</h3>
-                <p>Lorem ipsum dolor sit amet ipsum</p>
+                <div class="features-content">
+                    <h3>#Office</h3>
+                    <p>Lorem ipsum dolor sit amet ipsum</p>
+                </div>
             </div>
 
             <div class="feature-card">
+                <div class="features-content">
+                    <h3>#House</h3>
+                    <p>Lorem ipsum dolor sit amet ipsum</p>
+                </div>
                 <img src="images/fox.png" alt="Fox">
-                <h3>House</h3>
-                <p>Lorem ipsum dolor sit amet ipsum</p>
             </div>
         </section>
 
@@ -50,4 +56,13 @@ export function renderMain() {
             </form>
         </section>
     `;
+
+    document.querySelector('.header').classList.add('header-main');
+    document.querySelector('.header').classList.remove('header-other');
+
+    document.querySelector('.logo').classList.add('logo-main');
+    document.querySelector('.logo').classList.remove('logo-other');
+
+    document.querySelectorAll('.cart-icon-white').forEach(btn => btn.style.display = 'inline-block');
+    document.querySelectorAll('.cart-icon-black').forEach(btn => btn.style.display = 'none');
 }
