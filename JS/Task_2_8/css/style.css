@@ -6,6 +6,7 @@
     --black-color: #000000;
     --grey-color: #E6E6E6;
     --grey-text-color: #969595;
+    --grey-text-color2: #484848;
 
 }
 /* RESET */
@@ -21,6 +22,10 @@ body {
 
 h1, h2, h3, h4 {
     font-family: "Playfair Display", serif;
+}
+
+p {
+    font-family: "Montserrat", sans-serif;
 }
 
 /* HEADER */
@@ -290,24 +295,40 @@ nav a:hover {
     color: #bfbfbf;
 }
 
+.footer-logo {
+    font-family: "Montserrat", sans-serif;
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.footer-logo span {
+    color: var(--white-color);
+}
+
 .footer-inner {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 90px 80px;
+    padding: 90px 40px 20px 40px;
     display: grid;
     grid-template-columns: 2.2fr repeat(5, 1fr);
     gap: 60px;
 }
 
 .footer-col h4 {
+    font-family: "Montserrat", sans-serif;
     color: #fff;
     font-size: 14px;
     margin-bottom: 18px;
 }
 
 .footer-col p {
+    font-family: "Montserrat", sans-serif;
     font-size: 13px;
     margin-bottom: 10px;
+    cursor: pointer;
+
 }
 
 .socials {
@@ -361,14 +382,46 @@ nav a:hover {
 .about-section {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 50px;
     padding: 100px 20px;
-    max-width: 800px;
+    max-width: 1000px;
     width: 100%;
+    margin: auto;
 }
 
-.about-content-first {
+.about-content {
     display: flex;
+    gap: 40px;
+}
+
+.about-content-text h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.about-content-text p {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--grey-text-color2);
+}
+
+
+/* SHOP PAGE STYLES */
+
+.shop-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
 }
