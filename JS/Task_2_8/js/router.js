@@ -34,8 +34,8 @@ const routes = {
         render: renderMain,
     },
     "/shop": {
-        title: "Shop",
-        breadcrumbEl: ["Home", "Shop"],
+        title: "All Items",
+        breadcrumbEl: ["Home", "All items"],
         render: renderShop,
     },
     "/about": {
