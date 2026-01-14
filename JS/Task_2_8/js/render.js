@@ -31,7 +31,9 @@ export function renderProducts(list) {
             <div class="card">
                 <img src="${product.image}">
                 <h3>${product.title}</h3>
-                <p>$${product.price}</p>
+                <p>${product.price}</p>
+                <div><img src="${product.rating}" alt="Fox Icon" class="fox-icon"></div>
+                <p>${product.category}</p>
                 <button data-id="${product.id}">Add</button>
             </div>
         `;
