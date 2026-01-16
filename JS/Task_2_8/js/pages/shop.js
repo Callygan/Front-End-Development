@@ -1,7 +1,41 @@
 import { products } from "../data.js";
 import { renderProducts } from "../render.js";
+import { parsePrice } from "../utils/price.js";
 
 let currentProducts = [...products];
+
+let selectedCategory = "All";
+let searchQuery = "";
+let maxPrice = null;
+
+function normalizeCategory(value) {
+    return String(value ?? "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/s$/, "");
+}
+
+function applyFilters() {
+    let list = [...products];
+
+    if (selectedCategory !== "All") {
+        const selected = normalizeCategory(selectedCategory);
+        list = list.filter(p => normalizeCategory(p.category) === selected);
+    }
+
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        list = list.filter(p => String(p.title ?? "").toLowerCase().includes(q));
+    }
+
+    if (maxPrice != null) {
+        list = list.filter(p => parsePrice(p.price) <= maxPrice);
+    }
+
+    currentProducts = list;
+    renderProducts(currentProducts);
+}
 
 export function renderShop() {
     const app = document.getElementById("app");
@@ -36,7 +70,7 @@ export function renderShop() {
                     <div class="slider-container">
                         <h5>Price:</h5>
                         <div class="slider-value">
-                            <input type="range" id="income" name="income" min="0" max="200" step="1 value="50">
+                            <input type="range" id="income" name="income" min="0" max="200" step="1" value="200">
                             <span id="income-value"></span>
                         </div>
                     </div>
@@ -46,7 +80,7 @@ export function renderShop() {
             <div>
                 <div id="products" class="products"></div>
                 <div class="center">
-                    <a href="/shop" data-link class="btn-primary">All foxes</a>
+                    <a href="" data-link class="btn-primary">All foxes</a>
                 </div>
             </div>
 
@@ -63,6 +97,9 @@ export function renderShop() {
             const value = Number(slider.value);
             valueEl.textContent = `Value: $${value}`;
 
+            maxPrice = value;
+            applyFilters();
+
             const percent =
                 ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
 
@@ -73,9 +110,9 @@ export function renderShop() {
         slider.addEventListener("input", update);
     }
 
-    renderProducts(currentProducts);
     initShopEvents();
     initIncomeSlider();
+    applyFilters();
 
     document.querySelector('.header').classList.add('header-other');
     document.querySelector('.header').classList.remove('header-main');
@@ -88,34 +125,28 @@ export function renderShop() {
 }
 
 function initShopEvents() {
-    const searchInput = document.getElementById("searchInput");
+    const searchInput = document.getElementById("search__input");
     const filterButtons = document.querySelectorAll(".filters button");
 
-    if (!searchInput || !filterButtons.length) return;
-
     // SEARCH
-    searchInput.addEventListener("input", (e) => {
-        const value = e.target.value.toLowerCase();
-
-        const filtered = currentProducts.filter(product =>
-            product.title.toLowerCase().includes(value)
-        );
-
-        renderProducts(filtered);
-    });
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            searchQuery = String(e.target.value ?? "").trim();
+            applyFilters();
+        });
+    }
 
     // FILTER
-    filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const category = btn.dataset.category;
+    if (filterButtons.length) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                selectedCategory = btn.dataset.category ?? "All";
 
-            currentProducts =
-                category === "All"
-                    ? [...products]
-                    : products.filter(p => p.category === category);
+                searchQuery = "";
+                if (searchInput) searchInput.value = "";
 
-            searchInput.value = "";
-            renderProducts(currentProducts);
+                applyFilters();
+            });
         });
-    });
+    }
 }

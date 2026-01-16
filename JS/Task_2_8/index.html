@@ -20,19 +20,38 @@
         </nav>
 
         <div class="header-cart">
-            <button id="cartBtn" class="cart-icon-white"><img src="/images/shopping-cart-icon.png" alt=""></button>
-            <button id="cartBtn" class="cart-icon-white"><img src="/images/cart-fox.png" alt=""></button>
+            <button class="cart-icon-white"><img src="/images/shopping-cart-icon.png" alt=""></button>
+            <button class="cart-icon-white"><img src="/images/cart-fox.png" alt=""></button>
 
-            <button id="cartBtn" class="cart-icon-black"><img src="/images/shopping-cart-black-icon.png" alt=""></button>
-            <button id="cartBtn" class="cart-icon-black"><img src="/images/cart-fox-black.png" alt=""></button>
+            <button class="cart-icon-black"><img src="/images/shopping-cart-black-icon.png" alt=""></button>
+            <button class="cart-icon-black"><img src="/images/cart-fox-black.png" alt=""></button>
         </div>
     </header>
 
-    <!-- SPA CONTENT -->
-    <main id="app"></main>
+    <!-- CART OVERLAY -->
+    <div id="cart-overlay" class="cart-overlay"></div>
 
     <!-- CART SIDEBAR -->
-    <aside id="cart" class="cart hidden"></aside>
+    <aside id="cart" class="cart">
+        <div class="cart-header">
+            <button id="cart-close">&times;</button>
+            <p>box</p>
+            <h1>Your Bag</h1>
+        </div>
+
+        <div id="cart-items" class="cart-items"></div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <h2>Total:</h2>
+                <strong id="cart-total">$0.00</strong>
+            </div>
+            <button class="btn-primary">Checkout</button>
+        </div>
+    </aside>
+
+    <!-- SPA CONTENT -->
+    <main id="app"></main>
 
     <footer class="footer">
         <div class="footer-inner">
