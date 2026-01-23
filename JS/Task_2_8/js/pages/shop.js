@@ -62,10 +62,12 @@ export function renderShop() {
 
                 <div class="filters">
                     <h5>Topic</h5>
-                    <button data-category="All">All</button>
-                    <button data-category="Forest">Forest</button>
-                    <button data-category="Fox kids">Fox kids</button>
-                    <button data-category="Others">Others</button>
+                    <div class="buttons-group">
+                        <button data-category="All">All</button>
+                        <button data-category="Forest">Forest</button>
+                        <button data-category="Fox kids">Fox kids</button>
+                        <button data-category="Others">Others</button>
+                    </div>
 
                     <div class="slider-container">
                         <h5>Price:</h5>
@@ -120,8 +122,13 @@ export function renderShop() {
     document.querySelector('.logo').classList.add('logo-other');
     document.querySelector('.logo').classList.remove('logo-main');
 
-    document.querySelectorAll('.cart-icon-white').forEach(btn => btn.style.display = 'none');
-    document.querySelectorAll('.cart-icon-black').forEach(btn => btn.style.display = 'inline-block');
+    const isMobile = window.matchMedia("(max-width: 724px)").matches;
+
+    document.querySelectorAll(".cart-icon-white")
+    .forEach(btn => btn.style.display = isMobile ? "inline-block" : "none");
+
+    document.querySelectorAll(".cart-icon-black")
+    .forEach(btn => btn.style.display = isMobile ? "none" : "inline-block");
 }
 
 function initShopEvents() {

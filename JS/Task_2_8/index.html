@@ -10,10 +10,33 @@
 <body>
     <!-- HEADER -->
     <header class="header header-main header-other">
-        <div class="logo logo-main logo-other">foxmind<span class="logo-ed">ed</span></div>
+        <!-- Mobile menu -->
+        <button class="burger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
+        <div class="mobile-menu">
+            <div class="mobile-logo">foxmind<span class="logo-ed">ed</span></div>
+            <nav class="mobile-nav">
+                <a href="/shop" data-link>SHOP</a>
+                <a href="/" data-link>MAINPAGE</a>
+                <a href="/about" data-link>OUT HISTORY</a>
+                <a href="/shop" data-link>ALL ITES</a>
+            </nav>
+
+            <button class="close-menu">×</button>
+        </div>
+
+        <div class="menu-overlay"></div>
+
+        <!-- Logo -->
+        <div class="logo logo-main">foxmind<span class="logo-ed">ed</span></div>
+
+        <!-- Main menu -->
         <nav class="nav">
-            <a href="/" data-link>SHOP</a>
+            <a href="/shop" data-link>SHOP</a>
             <a href="/" data-link>MAINPAGE</a>
             <a href="/about" data-link>OUR HISTORY</a>
             <a href="/shop" data-link>ALL ITES</a>
@@ -57,7 +80,7 @@
         <div class="footer-inner">
 
             <!-- BRAND COLUMN -->
-            <div class="footer-brand">
+            <div class="footer-brand footer-col">
                 <h3 class="footer-logo">foxmind<span>ed</span></h3>
                 <p>Lorem ipsum dolor sit amet consectetur consectetur</p>
                 <p>Call us: 8956 3254 7887</p>

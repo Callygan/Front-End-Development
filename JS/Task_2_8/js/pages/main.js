@@ -1,4 +1,4 @@
-export function renderMain() {
+ export function renderMain() {
     const app = document.getElementById("app");
 
     app.innerHTML = `
