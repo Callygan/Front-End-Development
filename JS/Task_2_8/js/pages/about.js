@@ -43,4 +43,12 @@ export function renderAbout() {
 
     document.querySelectorAll('.cart-icon-white').forEach(btn => btn.style.display = 'none');
     document.querySelectorAll('.cart-icon-black').forEach(btn => btn.style.display = 'inline-block');
+
+    const isMobile = window.matchMedia("(max-width: 724px)").matches;
+    
+    document.querySelectorAll(".cart-icon-white")
+    .forEach(btn => btn.style.display = isMobile ? "inline-block" : "none");
+
+    document.querySelectorAll(".cart-icon-black")
+    .forEach(btn => btn.style.display = isMobile ? "none" : "inline-block");
 }
