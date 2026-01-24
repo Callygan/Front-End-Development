@@ -38,6 +38,12 @@ function applyFilters() {
 }
 
 export function renderShop() {
+    // Reset the filters
+    currentProducts = [...products];
+    selectedCategory = "All";
+    searchQuery = "";
+    maxPrice = null;
+
     const app = document.getElementById("app");
 
     app.innerHTML = `
@@ -50,7 +56,7 @@ export function renderShop() {
         <div class="shop-container">
             <div class="controls">
                 <div class="search">
-                    <input type="text" id="search__input" placeholder="Search"/>
+                    <input type="input" id="search__input" placeholder="Search"/>
                     <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
                         <g>
                         <path
@@ -62,12 +68,14 @@ export function renderShop() {
 
                 <div class="filters">
                     <h5>Topic</h5>
-                    <div class="buttons-group">
-                        <button data-category="All">All</button>
-                        <button data-category="Forest">Forest</button>
-                        <button data-category="Fox kids">Fox kids</button>
-                        <button data-category="Others">Others</button>
-                    </div>
+                    <nav class="buttons-group">
+                        <ul>
+                            <li><button data-category="All">All</button></li>
+                            <li><button data-category="Forest">Forest</button></li>
+                            <li><button data-category="Fox kids">Fox kids</button></li>
+                            <li><button data-category="Others">Others</button></li>
+                        </ul>
+                    </nav>
 
                     <div class="slider-container">
                         <h5>Price:</h5>
@@ -79,10 +87,10 @@ export function renderShop() {
                 </div>
             </div>
 
-            <div>
+            <div class="shop-right">
                 <div id="products" class="products"></div>
                 <div class="center">
-                    <a href="" data-link class="btn-primary">All foxes</a>
+                    <a href="/shop" data-link class="btn-primary">All foxes</a>
                 </div>
             </div>
 
@@ -119,8 +127,8 @@ export function renderShop() {
     document.querySelector('.header').classList.add('header-other');
     document.querySelector('.header').classList.remove('header-main');
 
-    document.querySelector('.logo').classList.add('logo-other');
-    document.querySelector('.logo').classList.remove('logo-main');
+    document.querySelector('h1.logo').classList.add('logo-other');
+    document.querySelector('h1.logo').classList.remove('logo-main');
 
     const isMobile = window.matchMedia("(max-width: 724px)").matches;
 

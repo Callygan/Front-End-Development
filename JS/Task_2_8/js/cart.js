@@ -78,12 +78,7 @@ function changeQty(productId, delta) {
     const item = state.cart.find(i => i.id === id);
     if (!item) return;
 
-    item.qty += delta;
-
-    if (item.qty <= 0) {
-        removeFromCart(id);
-        return;
-    }
+    item.qty = Math.max(0, item.qty + delta);
 
     saveCart();
     renderCart();
@@ -144,6 +139,7 @@ function bindQtyButtons() {
     });
 
     document.querySelectorAll("[data-dec]").forEach(btn => {
+
         btn.addEventListener("click", () =>
             changeQty(btn.dataset.dec, -1)
         );

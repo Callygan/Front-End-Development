@@ -4,14 +4,19 @@ export function renderBreadcrumb(route) {
 
     if (!breadcrumbEl || !titleEl) return;
 
-    breadcrumbEl.innerHTML = route.breadcrumbEl
-        .map((item, index) => {
-            if (index === 0) {
-                return `<a href="/" data-link>${item}</a>`;
+    const items = route.breadcrumbEl
+        .map((item, index, array) => {
+            const isLast = index === array.length - 1;
+            
+            if (isLast) {
+                return `<li>${item}</li>`;
+            } else {
+                const href = index === 0 ? "/" : `/${item}`;
+                return `<li><a href="${href}" data-link>${item}</a></li>`;
             }
-            return `/${item}`;
         })
         .join("");
 
-        titleEl.textContent = route.title;
+    breadcrumbEl.innerHTML = `<nav><ul>${items}</ul></nav>`;
+    titleEl.textContent = route.title;
 }
