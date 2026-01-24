@@ -24,7 +24,6 @@ export function renderProducts(list) {
     container.querySelectorAll("button[data-id]").forEach(btn => {
         btn.addEventListener("click", () => {
             addToCart(Number(btn.dataset.id));
-            openCart();
         });
     });
 }

@@ -60,8 +60,8 @@
     document.querySelector('.header').classList.add('header-main');
     document.querySelector('.header').classList.remove('header-other');
 
-    document.querySelector('.logo').classList.add('logo-main');
-    document.querySelector('.logo').classList.remove('logo-other');
+    document.querySelector('h1.logo').classList.add('logo-main');
+    document.querySelector('h1.logo').classList.remove('logo-other');
 
     document.querySelectorAll('.cart-icon-white').forEach(btn => btn.style.display = 'inline-block');
     document.querySelectorAll('.cart-icon-black').forEach(btn => btn.style.display = 'none');

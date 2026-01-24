@@ -38,8 +38,8 @@ export function renderAbout() {
     document.querySelector('.header').classList.add('header-other');
     document.querySelector('.header').classList.remove('header-main');
 
-    document.querySelector('.logo').classList.add('logo-other');
-    document.querySelector('.logo').classList.remove('logo-main');
+    document.querySelector('h1.logo').classList.add('logo-other');
+    document.querySelector('h1.logo').classList.remove('logo-main');
 
     document.querySelectorAll('.cart-icon-white').forEach(btn => btn.style.display = 'none');
     document.querySelectorAll('.cart-icon-black').forEach(btn => btn.style.display = 'inline-block');
