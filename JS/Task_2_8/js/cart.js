@@ -4,9 +4,9 @@ import { parsePrice } from "./utils/price.js";
 
 function getCartElements() {
     return {
-        cart: document.getElementById("cart"),
-        overlay: document.getElementById("cart-overlay"),
-        closeBtn: document.getElementById("cart-close"),
+        cart: document.querySelector("[data-cart]"),
+        overlay: document.querySelector("[data-cart-overlay]"),
+        closeBtn: document.querySelector("[data-cart-close]"),
     };
 }
 
@@ -78,7 +78,7 @@ function changeQty(productId, delta) {
     const item = state.cart.find(i => i.id === id);
     if (!item) return;
 
-    item.qty = Math.max(0, item.qty + delta);
+    item.qty = Math.max(1, item.qty + delta);
 
     saveCart();
     renderCart();
@@ -89,8 +89,8 @@ function changeQty(productId, delta) {
 ====================== */
 
 export function renderCart() {
-    const container = document.getElementById("cart-items");
-    const totalEl = document.getElementById("cart-total");
+    const container = document.querySelector("[data-cart-items]");
+    const totalEl = document.querySelector("[data-cart-total]");
 
     if (!container || !totalEl) return;
 
@@ -105,18 +105,18 @@ export function renderCart() {
             <div class="cart-item">
                 <div class="cart-item-info">
                     <img src="${item.image}" alt="${item.title}">
-                    <div class="cart-item-details">
+                    <div>
                         <h4>${item.title}</h4>
                         <p>$${item.price.toFixed(2)}</p>
                     </div>
                 </div>
                 <div class="cart-item-actions">
-                    <div class="cart-qty">
-                        <button data-dec="${item.id}">−</button>
+                    <div>
+                        <button data-dec="${item.id}" ${item.qty <= 1 ? "disabled" : ""}>−</button>
                         <span>${item.qty}</span>
                         <button data-inc="${item.id}">+</button>
                     </div>
-                    <button data-id="${item.id}" class="cart-remove-btn">Remove <span>X</span></button>
+                    <button data-id="${item.id}" data-cart-remove-item>Remove <span>X</span></button>
                 </div>
             </div>
         `;
@@ -145,7 +145,7 @@ function bindQtyButtons() {
         );
     });
 
-    document.querySelectorAll(".cart-remove-btn").forEach(btn => {
+    document.querySelectorAll("[data-cart-remove-item]").forEach(btn => {
         btn.addEventListener("click", () => 
             removeFromCart(btn.dataset.id)
         );

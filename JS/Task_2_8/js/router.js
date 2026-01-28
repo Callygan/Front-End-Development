@@ -6,17 +6,23 @@ import { renderAbout } from "./pages/about.js";
 const routes = {
     "/": {
         title: "Home",
-        breadcrumbEl: ["Home"],
+        breadcrumb: [{ label: "Home", path: "/" }],
         render: renderMain,
     },
     "/shop": {
         title: "All Items",
-        breadcrumbEl: ["Home", "All items"],
+        breadcrumb: [
+            { label: "Home", path: "/" },
+            { label: "All items", path: "/shop" },
+        ],
         render: renderShop,
     },
     "/about": {
         title: "Our history",
-        breadcrumbEl: ["Home", "About Us"],
+        breadcrumb: [
+            { label: "Home", path: "/" },
+            { label: "About Us", path: "/about" },
+        ],
         render: renderAbout,
     }
 };
@@ -26,14 +32,46 @@ document.addEventListener("click", (e) => {
     if (!link) return;
 
     e.preventDefault();
-    history.pushState(null, "", link.getAttribute("href"));
-    router();
+    const href = link.getAttribute("href") || "/";
+    const targetHash = `#${href}`;
+    if (window.location.hash === targetHash) {
+        router();
+        return;
+    }
+
+    window.location.hash = targetHash;
 });
 
-export function router() {
-    const path = window.location.pathname;
+function getPathFromHash() {
+    const hash = window.location.hash || "#/";
+    const path = hash.replace(/^#/, "");
+    return path.startsWith("/") ? path : `/${path}`;
+}
+
+function setActiveNav(path) {
+    const normalizedPath = path === "/" ? "/" : path.replace(/\/$/, "");
+
+    document.querySelectorAll('a[data-link]').forEach((a) => {
+        a.classList.remove("is-active");
+        if (a.getAttribute("aria-current") === "page") {
+            a.removeAttribute("aria-current");
+        }
+
+        const href = a.getAttribute("href") || "/";
+        const normalizedHref = href === "/" ? "/" : href.replace(/\/$/, "");
+
+        if (normalizedHref === normalizedPath) {
+            a.classList.add("is-active");
+            a.setAttribute("aria-current", "page");
+        }
+    });
+}
+
+export async function router() {
+    const path = getPathFromHash();
     const route = routes[path] || routes["/"];
 
-    route.render();
+    await route.render();
     renderBreadcrumb(route);
+    setActiveNav(path);
 }

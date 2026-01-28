@@ -1,6 +1,9 @@
 import { products } from "../data.js";
 import { renderProducts } from "../render.js";
 import { parsePrice } from "../utils/price.js";
+import { loadHtml } from "../utils/html.js";
+
+const templateUrl = new URL("./shop.html", import.meta.url);
 
 let currentProducts = [...products];
 
@@ -37,7 +40,7 @@ function applyFilters() {
     renderProducts(currentProducts);
 }
 
-export function renderShop() {
+export async function renderShop() {
     // Reset the filters
     currentProducts = [...products];
     selectedCategory = "All";
@@ -46,60 +49,11 @@ export function renderShop() {
 
     const app = document.getElementById("app");
 
-    app.innerHTML = `
-
-        <section class="about-header">
-            <span id="breadcrumb"></span>
-            <h1 id="page-title"></h1>
-        </section>
-
-        <div class="shop-container">
-            <div class="controls">
-                <div class="search">
-                    <input type="input" id="search__input" placeholder="Search"/>
-                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
-                        <g>
-                        <path
-                            d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-                        ></path>
-                        </g>
-                    </svg>
-                </div>
-
-                <div class="filters">
-                    <h5>Topic</h5>
-                    <nav class="buttons-group">
-                        <ul>
-                            <li><button data-category="All">All</button></li>
-                            <li><button data-category="Forest">Forest</button></li>
-                            <li><button data-category="Fox kids">Fox kids</button></li>
-                            <li><button data-category="Others">Others</button></li>
-                        </ul>
-                    </nav>
-
-                    <div class="slider-container">
-                        <h5>Price:</h5>
-                        <div class="slider-value">
-                            <input type="range" id="income" name="income" min="0" max="200" step="1" value="200">
-                            <span id="income-value"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="shop-right">
-                <div id="products" class="products"></div>
-                <div class="center">
-                    <a href="/shop" data-link class="btn-primary">All foxes</a>
-                </div>
-            </div>
-
-        </div>
-    `;
+    app.innerHTML = await loadHtml(templateUrl);
 
     function initIncomeSlider() {
-        const slider = document.getElementById("income");
-        const valueEl = document.getElementById("income-value");
+        const slider = document.querySelector("[data-income-input]");
+        const valueEl = document.querySelector("[data-income-value]");
 
         if (!slider || !valueEl) return;
 
@@ -124,19 +78,8 @@ export function renderShop() {
     initIncomeSlider();
     applyFilters();
 
-    document.querySelector('.header').classList.add('header-other');
-    document.querySelector('.header').classList.remove('header-main');
-
-    document.querySelector('h1.logo').classList.add('logo-other');
-    document.querySelector('h1.logo').classList.remove('logo-main');
-
-    const isMobile = window.matchMedia("(max-width: 724px)").matches;
-
-    document.querySelectorAll(".cart-icon-white")
-    .forEach(btn => btn.style.display = isMobile ? "inline-block" : "none");
-
-    document.querySelectorAll(".cart-icon-black")
-    .forEach(btn => btn.style.display = isMobile ? "none" : "inline-block");
+    document.querySelector("header[data-header]").classList.add('header-other');
+    document.querySelector("header[data-header]").classList.remove('header-main');
 }
 
 function initShopEvents() {

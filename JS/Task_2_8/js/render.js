@@ -1,7 +1,7 @@
-import { addToCart, openCart } from "./cart.js";
+import { addToCart } from "./cart.js";
 
 export function renderProducts(list) {
-    const container = document.getElementById("products");
+    const container = document.querySelector("[data-products]");
     if(!container) return;
 
     container.innerHTML = "";
@@ -11,7 +11,7 @@ export function renderProducts(list) {
             <div class="card">
                 <img src="${product.image}">
                 <button data-id="${product.id}"><span>+</span>Add</button>
-                <div class="card-content">
+                <div>
                     <h3>${product.title}</h3>
                     <p>${product.price}</p>
                     <div><img src="${product.rating}" alt="Fox Icon" class="fox-icon"></div>

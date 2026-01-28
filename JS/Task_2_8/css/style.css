@@ -57,26 +57,28 @@ main {
     justify-content: space-between;
     align-items: center;
 }
-.header .nav ul {
+
+header .nav ul {
     display: flex;
     list-style: none;
     gap: 24px;
 }
 
-.header .nav a {
+header .nav a {
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
 }
 
-.header-other .nav a {
-    color: #000;
+/* Active nav link */
+header .nav a.is-active,
+header .nav a[aria-current="page"] {
+    color: var(--primary-color);
 }
 
-.header-cart {
-    display: flex;
-    gap: 16px;
+.header-other .nav a {
+    color: #000;
 }
 
 .header-cart button {
@@ -84,9 +86,9 @@ main {
     border: none;
     padding: 8px;
     cursor: pointer;
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
@@ -95,6 +97,22 @@ main {
     display: block;
     width: 20px;
     height: 20px;
+}
+
+.header-cart .cart-icon-white {
+    display: none;
+}
+
+.header-cart .cart-icon-black {
+    display: inline-flex;
+}
+
+.header-main .header-cart .cart-icon-white {
+    display: inline-flex;
+}
+
+.header-main .header-cart .cart-icon-black {
+    display: none;
 }
 
 .logo {
@@ -108,27 +126,28 @@ main {
     color: inherit;
 }
 
-.logo-main {
+/* Logo theme driven by header mode */
+.header-main .logo {
     color: var(--white-color);
 }
 
-.logo-other {
+.header-other .logo {
     color: var(--primary-color);
 }
 
-.logo-ed {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.logo-main .logo-ed {
+.header-main .logo span {
     color: var(--black-color);
     background-color: var(--white-color);
 }
 
-.logo-other .logo-ed {
+.header-other .logo span {
     color: var(--white-color);
     background-color: var(--black-color);
+}
+
+.logo a span {
+    font-size: 20px;
+    font-weight: 700;
 }
 
 .header-main .nav a {
@@ -237,7 +256,7 @@ main {
     object-fit: cover;
 }
 
-.cart-item-details {
+.cart-item-info > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -273,13 +292,19 @@ main {
     padding: 3px 6px;
 }
 
-.cart-qty {
+.cart-item-actions > div {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.cart-qty button {
+.cart-item-actions > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-item-actions > div button {
     background-color: transparent;
     border: none;
     font-size: 19px;
@@ -287,10 +312,20 @@ main {
     color: var(--grey-text-color);
 }
 
-.cart-qty span {
+.cart-item-actions > div button:disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
+.cart-item-actions > div span {
     font-size: 19px;
     font-weight: 700;
-    padding: 10px 26px;
+    width: 60px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--primary-color);
     border-radius: 45px;
     color: var(--white-color);
@@ -312,7 +347,7 @@ main {
     cursor: pointer;
 }
 
-.cart-total {
+.cart-footer > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -445,11 +480,9 @@ main {
     margin: 56px 10px;
 }
 
-.center a {
+.center a,
+.cart-footer button {
     padding: 20px;
-}
-
-.btn-primary {
     display: inline-block;
     background: var(--primary-color);
     color: var(--white-color);
@@ -463,7 +496,8 @@ main {
     border: 1px solid var(--primary-color);
 }
 
-.btn-primary:hover {
+.center a:hover,
+.cart-footer button:hover {
     background: var(--white-color);
     color: var(--primary-color);
     transition: all 0.3s ease-in-out;
@@ -517,21 +551,9 @@ main {
 
 
 /* FOOTER */
-.footer {
+footer {
     background: #1a1a1a;
     color: #bfbfbf;
-}
-
-.footer-logo {
-    font-family: "Montserrat", sans-serif;
-    color: var(--primary-color);
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.footer-logo span {
-    color: var(--white-color);
 }
 
 .footer-inner {
@@ -543,31 +565,47 @@ main {
     gap: 60px;
 }
 
-.footer-brand {
+.footer-inner > div {
     max-width: 200px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
 }
 
-.footer-brand a:hover {
+.footer-inner > div h3 {
+    font-family: "Montserrat", sans-serif;
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.footer-inner > div h3 span {
+    color: var(--white-color);
+}
+
+
+.footer-inner > div a:hover {
     color: var(--primary-color);
 }
 
-.footer-links {
+.footer-inner > nav {
     display: flex;
     justify-content: center;
     width: auto;
     gap: 60px;
 }
 
-.footer-links ul {
+.footer-inner > nav ul {
     list-style: none;
 }
 
-.footer-links li {
+.footer-inner > nav li {
     padding: 4px 0;
 }
 
-.footer-links h4 {
+.footer-inner > nav h4 {
     font-family: "Montserrat", sans-serif;
     color: #fff;
     font-size: 14px;
@@ -575,28 +613,26 @@ main {
     cursor: pointer;
 }
 
-.footer-links a,
-.footer-brand p,
-.footer-brand a {
+.footer-inner > div a,
+.footer-inner > nav p,
+.footer-inner > nav a {
     font-family: "Montserrat", sans-serif;
     font-size: 13px;
-    margin-bottom: 10px;
     text-decoration: none;
     color: var(--white-color);
 }
 
-.footer-links a:hover,
-.footer-links h4:hover {
+.footer-inner > nav a:hover,
+.footer-inner > nav h4:hover {
     color: var(--primary-color);
 }
 
-.socials ul{
-    margin-top: 16px;
+.footer-inner > div nav ul{
     display: flex;
     gap: 12px;
 }
 
-.socials ul li {
+.footer-inner > div nav ul li {
     width: 28px;
     height: 28px;
     display: flex;
@@ -672,18 +708,18 @@ main {
     display: block;
 }
 
-.about-content {
+.about-section section {
     display: flex;
     gap: 40px;
 }
 
-.about-content-text h3 {
+.about-section > section > div h3 {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 20px;
 }
 
-.about-content-text p {
+.about-section > section > div p {
     font-size: 20px;
     font-weight: 400;
     color: var(--grey-text-color2);
@@ -753,7 +789,7 @@ main {
   box-shadow: 0 0 0 4px rgb(247 127 0 / 10%);
 }
 
-.icon {
+.search svg {
   position: absolute;
   right: 1rem;
   fill: var(--black-color);
@@ -773,7 +809,7 @@ main {
     margin-bottom: 20px;
 }
 
-.buttons-group ul{
+.filters > nav ul{
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -781,11 +817,11 @@ main {
     gap: 0;
 }
 
-.buttons-group li {
+.filters > nav ul li {
     flex: 0 0 50%;
 }
 
-.buttons-group button {
+.filters > nav ul li button {
     background: transparent;
     border: none;
     line-height: 40px;
@@ -798,16 +834,16 @@ main {
     cursor: pointer;
 }
 
-.buttons-group button:hover {
+.filters > nav ul li button:hover {
     background-color: #CC5520;
     color: var(--white-color);
 }
 
-.slider-container {
+.filters > div {
     padding-top: 40px;
 }
 
-.slider-value {
+.filters > div > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -816,7 +852,7 @@ main {
 }
 
 
-.slider-value span {
+.filters > div > div span {
     border-radius: 4px;
     min-width: 50px;
     color: var(--black-color);
@@ -921,30 +957,30 @@ input[type="range"] {
     font-weight: 600;
 }
 
-.card-content {
+.card > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px 0 0 0;
 }
 
-.card-content h3, h4, p {
+.card > div h3, h4, p {
     font-family: "Montserrat", sans-serif;
 }
 
-.card-content h3 {
+.card > div h3 {
     font-family: "Montserrat", sans-serif;
     font-size: 20px;
     font-weight: 700;
 }
 
-.card-content p {
+.card > div p {
     font-family: "Montserrat", sans-serif;
     font-size: 20px;
     font-weight: 600;
 }
 
-.card-content h4 {
+.card > div h4 {
     font-family: "Montserrat", sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -953,32 +989,8 @@ input[type="range"] {
 
 
 /* RESPONSIVE STYLES */
-.burger {
+header > button {
     display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.burger span {
-    width: 22px;
-    height: 2px;
-    background: #000;
-}
-
-.mobile-logo {
-    font-family: "Montserrat", sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--white-color);
-}
-
-.mobile-logo span {
-    font-size: 28px;
-    color: var(--black-color);
-    background-color: var(--white-color);
 }
 
 .mobile-menu {
@@ -1000,6 +1012,24 @@ input[type="range"] {
     top: 0;
 }
 
+.mobile-menu h1 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white-color);
+}
+
+.mobile-menu h1 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mobile-menu h1 span {
+    font-size: 28px;
+    color: var(--black-color);
+    background-color: var(--white-color);
+}
+
 .menu-overlay {
     position: fixed;
     inset: 0;
@@ -1016,7 +1046,7 @@ input[type="range"] {
     pointer-events: auto;
 }
 
-.mobile-nav {
+.mobile-menu nav {
     margin-top: 60px;
     display: flex;
     flex-direction: column;
@@ -1025,7 +1055,7 @@ input[type="range"] {
     list-style: none;
 }
 
-.mobile-nav ul {
+.mobile-menu nav ul {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -1033,11 +1063,11 @@ input[type="range"] {
     align-items: center;
 }
 
-.mobile-nav li {
+.mobile-menu nav li {
     text-transform: uppercase;
 }
 
-.mobile-nav a {
+.mobile-menu nav a {
     font-size: 30px;
     font-weight: 600;
     color: var(--white-color);
@@ -1045,11 +1075,11 @@ input[type="range"] {
     transition: color 0.3s ease;
 }
 
-.mobile-nav a:hover {
+.mobile-menu nav a:hover {
     color: var(--primary-color);
 }
 
-.close-menu {
+.mobile-menu button {
     align-self: center;
     font-size: 38px;
     background: none;
@@ -1064,27 +1094,29 @@ input[type="range"] {
     justify-content: center;
 }
 
-.close-menu:hover {
+.mobile-menu button:hover {
     color: var(--primary-color);
 }
 
 /* MEDIA QUERY STYLES */
 @media (max-width: 768px) {
 
+    .header-other .logo,
     .logo-other {
         color: var(--white-color);
     }
 
-    .logo-other .logo-ed {
+    .header-other .logo span,
+    .logo-other span {
         color: var(--grey-text-color);
         background-color: var(--white-color);
     }
 
-    .cart-icon-white {
-        display: inline-block;
+    .header-cart .cart-icon-white {
+        display: inline-flex;
     }
 
-    .cart-icon-black {
+    .header-cart .cart-icon-black {
         display: none;
     }
 
@@ -1097,7 +1129,7 @@ input[type="range"] {
         background-color:#00000073;
     }
 
-    .burger {
+    header > button {
         display: flex;
         flex-direction: row;
         gap: 5px;
@@ -1111,14 +1143,14 @@ input[type="range"] {
         justify-content: center;
     }
 
-    .burger span {
+    header > button > span {
         width: 4px;
         height: 4px;
         border-radius: 50%;
         background: var(--white-color);
     }
 
-    .header {
+    header[data-header] {
         padding: 16px 20px;
     }
 
@@ -1160,7 +1192,7 @@ input[type="range"] {
         padding: 14px;
     }
 
-    .footer-brand {
+    .footer-inner > div {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1174,7 +1206,7 @@ input[type="range"] {
         gap: 24px;
     }
 
-    .footer-links {
+    .footer-inner > nav {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
@@ -1182,11 +1214,11 @@ input[type="range"] {
         gap: 30px 10px;
     }
 
-    .footer-links ul  {
+    .footer-inner > nav ul  {
         flex: 0 0 45%;
     }
 
-    .footer-links ul:last-child {
+    .footer-inner > nav ul:last-child {
         margin-top: -60px;
     }
 
@@ -1194,12 +1226,12 @@ input[type="range"] {
         padding: 50px 10px;
     }
 
-    .about-content {
+    .about-section section {
         flex-direction: column;
         gap: 20px;
     }
 
-    .about-content:nth-of-type(2) {
+    .about-section section:nth-of-type(2) {
         flex-direction: column-reverse;
     }
 
@@ -1219,19 +1251,18 @@ input[type="range"] {
         max-width: 400px;
     }
 
-    .buttons-group ul{
+    .filters > nav ul{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 12px;
     }
 
-    
-    .buttons-group li {
+    .filters > nav ul li {
         flex: 0 0 48%;
     }
 
-    .filters button {
+    .filters > nav ul li button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1258,12 +1289,12 @@ input[type="range"] {
         display: block;
     }
     
-    .card-content h3, 
-    .card-content p {
+    .card > div h3, 
+    .card > div p {
         font-size: 16px;
     }
 
-      .cart {
+    .cart {
         left: 0;
         right: 0;
         top: -100vh;
