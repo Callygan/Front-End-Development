@@ -11,7 +11,7 @@ export function renderBreadcrumb(route) {
             const isLast = index === array.length - 1;
 
             if (isLast) {
-                return `<li>${item.label}</li>`;
+                return `<li><span aria-current="page">${item.label}</span></li>`;
             }
 
             return `<li><a href="${item.path}" data-link>${item.label}</a></li>`;
