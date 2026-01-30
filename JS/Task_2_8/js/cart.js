@@ -7,6 +7,7 @@ function getCartElements() {
         cart: document.querySelector("[data-cart]"),
         overlay: document.querySelector("[data-cart-overlay]"),
         closeBtn: document.querySelector("[data-cart-close]"),
+        countEl: document.querySelector("[data-cart-count]"),
     };
 }
 
@@ -27,14 +28,58 @@ export function closeCart() {
 }
 
 export function initCartUi() {
-    const { overlay, closeBtn } = getCartElements();
+    const { cart, overlay, closeBtn } = getCartElements();
 
-    if (overlay) overlay.addEventListener("click", closeCart);
+    if (cart) {
+        cart.addEventListener("click", (e) => e.stopPropagation());
+    }
+
+    if (overlay) {
+        overlay.addEventListener("click", (e) => {
+            if (e.target.closest("[data-cart]")) return;
+            closeCart();
+        });
+    }
     if (closeBtn) closeBtn.addEventListener("click", closeCart);
+
+    const checkoutBtn = document.querySelector("[data-cart-checkout]");
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener("click", handleCheckout);
+    }
 
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeCart();
     });
+}
+
+function handleCheckout() {
+    if (!state.cart.length) {
+        showToast("Your cart is empty.");
+        closeCart();
+        return;
+    }
+
+    state.cart = [];
+    saveCart();
+    renderCart();
+    closeCart();
+    showToast("Checkout successful!");
+}
+
+function showToast(message) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // force reflow to allow transition
+    void toast.offsetWidth;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 250);
+    }, 2000);
 }
 
 /* ======================
@@ -91,6 +136,7 @@ function changeQty(productId, delta) {
 export function renderCart() {
     const container = document.querySelector("[data-cart-items]");
     const totalEl = document.querySelector("[data-cart-total]");
+    const { countEl } = getCartElements();
 
     if (!container || !totalEl) return;
 
@@ -123,6 +169,12 @@ export function renderCart() {
     });
 
     totalEl.textContent = `$${total.toFixed(2)}`;
+
+    if (countEl) {
+        const distinct = state.cart.length;
+        countEl.textContent = distinct;
+        countEl.classList.toggle("is-zero", distinct === 0);
+    }
 
     bindQtyButtons();
 }

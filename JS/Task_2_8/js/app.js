@@ -19,7 +19,6 @@ document.querySelectorAll(".cart-icon-black, .cart-icon-white")
 const burger = document.querySelector("[data-menu-open]");
 const mobileMenu = document.querySelector("[data-menu]");
 const overlay = document.querySelector("[data-menu-overlay]");
-// const closeBtn = document.querySelector("[data-menu-close]");
 
 function closeMenu() {
     mobileMenu?.classList.remove("open");
@@ -32,7 +31,7 @@ burger?.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-    if (e.target.closest("[data-menu-close]") || e.target.closest("[data-menu-overlay]")) {
+    if (e.target.closest("[data-menu-close]") || e.target === overlay) {
         closeMenu();
     }
 });

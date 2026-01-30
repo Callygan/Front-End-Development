@@ -17,21 +17,21 @@
             <span></span>
         </button>
 
-        <div class="mobile-menu" data-menu>
-            <h1><a href="/" data-link>foxmind<span>ed</span></a></h1>
-            <nav>
-                <ul>
-                    <li><a href="/shop" data-link>Shop</a></li>
-                    <li><a href="/" data-link>Mainpage</a></li>
-                    <li><a href="/about" data-link>Our History</a></li>
-                    <li><a href="/shop" data-link>All Items</a></li>
-                </ul>
-            </nav>
+        <div class="menu-overlay" data-menu-overlay>
+            <div class="mobile-menu" data-menu>
+                <h1><a href="/" data-link>foxmind<span>ed</span></a></h1>
+                <nav>
+                    <ul>
+                        <li><a href="/shop1" data-link>Shop</a></li>
+                        <li><a href="/" data-link>Mainpage</a></li>
+                        <li><a href="/about" data-link>Our History</a></li>
+                        <li><a href="/shop" data-link>All Items</a></li>
+                    </ul>
+                </nav>
 
-            <button data-menu-close>x</button>
+                <button data-menu-close>x</button>
+            </div>
         </div>
-
-        <div class="menu-overlay" data-menu-overlay></div>
 
         <!-- Logo -->
         <h1 class="logo"><a href="/" data-link>foxmind<span>ed</span></a></h1>
@@ -39,7 +39,7 @@
         <!-- Main menu -->
         <nav class="nav">
             <ul>
-                <li><a href="/shop" data-link>Shop</a></li>
+                <li><a href="/shop1" data-link>Shop</a></li>
                 <li><a href="/" data-link>Mainpage</a></li>
                 <li><a href="/about" data-link>Our History</a></li>
                 <li><a href="/shop" data-link>All Items</a></li>
@@ -52,30 +52,32 @@
 
             <button class="cart-icon-black"><img src="./images/shopping-cart-black-icon.png" alt="Shopping Cart Black Icon"></button>
             <button class="cart-icon-black"><img src="./images/cart-fox-black.png" alt="Fox Cart Black Icon"></button>
+
+            <span class="cart-count" data-cart-count>0</span>
         </div>
     </header>
 
-    <!-- CART OVERLAY -->
-    <div class="cart-overlay" data-cart-overlay></div>
-
-    <!-- CART SIDEBAR -->
-    <aside class="cart" data-cart>
-        <div class="cart-header">
-            <button data-cart-close>&times;</button>
-            <p>box</p>
-            <h1>Your Bag</h1>
-        </div>
-
-        <div class="cart-items" data-cart-items></div>
-
-        <div class="cart-footer">
-            <div>
-                <h2>Total:</h2>
-                <strong data-cart-total>$0.00</strong>
+    <!-- CART OVERLAY (parent) -->
+    <div class="cart-overlay" data-cart-overlay>
+        <!-- CART SIDEBAR -->
+        <aside class="cart" data-cart>
+            <div class="cart-header">
+                <button data-cart-close>&times;</button>
+                <p>box</p>
+                <h2>Your Bag</h2>
             </div>
-            <button>Checkout</button>
-        </div>
-    </aside>
+
+            <div class="cart-items" data-cart-items></div>
+
+            <div class="cart-footer">
+                <div>
+                    <h2>Total:</h2>
+                    <strong data-cart-total>$0.00</strong>
+                </div>
+                <button data-cart-checkout>Checkout</button>
+            </div>
+        </aside>
+    </div>
 
     <!-- SPA CONTENT -->
     <main id="app"></main>
@@ -86,7 +88,7 @@
             <div>
                 <h3>foxmind<span>ed</span></h3>
                 <p>Lorem ipsum dolor sit amet consectetur consectetur</p>
-                <a href="tel:8956 3254 7887">Call us: 8956 3254 7887</a>
+                <a href="tel:895632547887">Call us: 8956 3254 7887</a>
 
                 <nav>
                     <ul>
