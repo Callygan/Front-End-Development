@@ -732,7 +732,6 @@ footer {
     transition: color 0.25s ease;
 }
 
-.about-header span li span:hover,
 .about-header span li a:hover {
     color: var(--primary-color);
     cursor: pointer;
