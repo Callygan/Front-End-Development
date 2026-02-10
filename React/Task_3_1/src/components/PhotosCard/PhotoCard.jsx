@@ -8,7 +8,7 @@ function PhotoCard({ image, title }) {
   };
 
   return (
-    <article className="relative w-full">
+    <li className="relative w-full">
       <div className="relative aspect-[4/5]">
         <img
           src={image}
@@ -21,7 +21,7 @@ function PhotoCard({ image, title }) {
           <span className="truncate block">{label}</span>
         </div>
       </div>
-    </article>
+    </li>
   );
 }
 

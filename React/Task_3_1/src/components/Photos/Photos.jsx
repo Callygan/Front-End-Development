@@ -9,12 +9,11 @@ function Photos() {
       <h2 className="sr-only">Photo Gallery</h2>
       <ul className="grid grid-cols-2 gap-0">
         {photos.map((photo) => (
-          <li key={photo.id}>
-            <PhotoCard
-              image={photo.webformatURL}
-              title={photo.title || photo.tags || photo.alt}
-            />
-          </li>
+          <PhotoCard
+            key={photo.id}
+            image={photo.webformatURL}
+            title={photo.title || photo.tags || photo.alt}
+          />
         ))}
       </ul>
     </section>

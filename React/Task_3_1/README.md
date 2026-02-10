@@ -1,27 +1,27 @@
 # React Mobile Gallery (Tailwind)
 
-A mobile photo gallery with a 2-column grid, local images, and an overlay with a title. Styled with Tailwind.
+Galerie foto mobilă cu grid pe 2 coloane, imagini locale și overlay cu titlu. Stilizare cu Tailwind.
 
-## How to run
+## Cum rulezi
 - `npm install`
 - `npm start` (http://localhost:3000)
-- Production: `npm run build`
+- Prod: `npm run build`
 
-## Data and images
-- Data is in `src/data/photos.json`. Used fields: `id`, `title`, `webformatURL` (path to image), plus optional metadata.
-- Images must be placed in `public/images/` and referenced as `/images/file-name.ext` in JSON (do not use `./public`).
+## Date și imagini
+- Datele sunt în `src/data/photos.json`. Câmpuri folosite: `id`, `title`, `webformatURL` (cale către imagine), plus meta opțional.
+- Imaginile trebuie puse în `public/images/` și referite ca `/images/nume-fisier.ext` în JSON (nu folosi `./public`).
 
-## Relevant structure
-- `src/App.js` — reads JSON and renders a 2xN grid with no gaps.
-- `src/components/PhotoCard.jsx` — card component; receives `image`, `title` as props and displays an overlay.
-- `src/index.css` — Tailwind directives + minor resets.
-- `tailwind.config.js`, `postcss.config.js` — Tailwind/PostCSS configuration.
+## Structură relevantă
+- `src/App.js` — citește JSON și randă grid 2xN fără spații.
+- `src/components/PhotoCard.jsx` — componentă card; primește `image`, `title` ca props și afișează overlay.
+- `src/index.css` — directive Tailwind + mici reset-uri.
+- `tailwind.config.js`, `postcss.config.js` — config Tailwind/PostCSS.
 
-## Notes
-- Layout is mobile-oriented: 2 columns, `gap-0`, black overlay with 50% opacity and centered title.
-- Image fallback: there's a placeholder if local files are missing.
+## Notițe
+- Layoutul este orientat mobil: 2 coloane, `gap-0`, overlay negru 50% cu titlul centrat.
+- Fallback imagine: există placeholder dacă lipsesc fișierele locale.
 
-## Requirements covered
-- Styling: Tailwind
-- Separate component: `PhotoCard`
-- Props and local data: `photos.json` mapped in `App`
+## Cerințe acoperite
+- Stilizare: Tailwind
+- Componentă separată: `PhotoCard`
+- Props și date locale: `photos.json` mapat în `App`
