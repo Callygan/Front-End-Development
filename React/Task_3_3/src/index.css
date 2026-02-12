@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+label { 
+    @apply text-sm font-medium;
+}
+
+input {
+    @apply border-0 border-b border-slate-300 bg-transparent focus:border-b-2 focus:border-blue-500 focus:outline-none;
+}
