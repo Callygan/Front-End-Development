@@ -12,7 +12,14 @@ export const validate = (values: FormValues): FormErrors => {
     const errors: FormErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!values.username.trim()) errors.username = "Username is required";
+    const username = values.username.trim();
+    if (!username) {
+        errors.username = "Username is required";
+    } else if (!/^[A-Za-z0-9]+$/.test(username)) {
+        errors.username = "Only letters and numbers allowed";
+    } else if (username.length < 3) {
+        errors.username = "Must be at least 3 characters";
+    }
     if (!values.email.trim()) errors.email = "Email is required";
     else if (!emailRegex.test(values.email.trim())) errors.email = "Invalid email format";
 

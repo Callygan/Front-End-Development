@@ -18,8 +18,7 @@ export default function useTimer(initialSeconds = 0, autoStart = false) {
     }, [isRunning]);
 
     const toggle = () => setIsRunning((prev) => !prev); // toggle between play and pause
-    const reset = () => setSeconds(0); // reset time back to zero
     const pause = () => setIsRunning(false); // helper to pause the timer without toggling
 
-    return { seconds, isRunning, toggle, reset, pause };
+    return { seconds, isRunning, toggle, pause };
 }
