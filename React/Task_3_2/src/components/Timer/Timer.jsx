@@ -3,7 +3,7 @@ import useTimer from "../../hooks/useTimer";
 import formatTime from "../../utils/formatTime";
 
 export default function Timer() {
-    const { seconds, isRunning, toggle, reset, pause } = useTimer(0, false);
+    const { seconds, isRunning, toggle } = useTimer(0, false);
     
     // track render count without forcing re-render
     const rendersRef = useRef(0);
@@ -11,11 +11,7 @@ export default function Timer() {
     
     const timeLabel = useMemo(() => formatTime(seconds), [seconds]); // memoize formatted time to avoid recomputing on unrelated renders
     const handleToggle = useCallback(() => toggle(), [toggle]); // stable handlers for play/pause and reset
-    const handleResetClick = () => {
-        // pause timer, then reset to zero
-        pause();
-        reset();
-    };
+    
 
     return (
         <div className="p-5 space-y-8">
@@ -41,16 +37,7 @@ export default function Timer() {
                     >
                         {isRunning ? "\u23F8 Pause" : "\u25B6 Play"}
                     </button>
-                    <button
-                        type="button"
-                        // combine pause + reset: stop timer then reset seconds
-                        onClick={handleResetClick}
-                        className={`w-1/2 mx-auto px-4 py-3 rounded-lg text-sm font-medium bg-amber-400 text-slate-100 cursor-pointer hover:bg-amber-500 transition ${
-                        isRunning || seconds > 0 ? "visible opacity-100" : "invisible pointer-events-none opacity-0"
-                        }`}
-                    >
-                        &#x21BA; Reset
-                    </button>
+                    {/* Reset button removed by request */}
                 </div>
             </div>
     );

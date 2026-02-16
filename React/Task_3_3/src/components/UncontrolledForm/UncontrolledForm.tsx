@@ -1,10 +1,17 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type * as React from "react";
+import hiddenIcon from "../../assets/images/hidden.png";
+import shownIcon from "../../assets/images/shown.png";
 import { validate } from "../../utils/validation";
 import type { FormValues } from "../../utils/validation";
 
 export function UncontrolledForm() {
     const formRef = useRef<HTMLFormElement | null>(null);
+    const [showPassword, setShowPassword] = useState({
+        password: false,
+        confirmPassword: false,
+    });
+    const [submitted, setSubmitted] = useState(false);
 
     //Delete the error message when the user changes the input
     const clearValidity = () => {
@@ -12,7 +19,10 @@ export function UncontrolledForm() {
         if (!form) return;
         Array.from(form.elements).forEach((el) => {
             if ("setCustomValidity" in el) {
-                (el as HTMLInputElement).setCustomValidity("");
+                const inputEl = el as HTMLInputElement;
+                inputEl.setCustomValidity("");
+                inputEl.dataset.invalid = "";
+                inputEl.setAttribute("aria-invalid", "false");
             }
         });
     };
@@ -24,6 +34,8 @@ export function UncontrolledForm() {
         const el = form.elements.namedItem(name) as HTMLInputElement | null;
         if (el && typeof el.setCustomValidity === "function") {
             el.setCustomValidity(message ?? "");
+            el.dataset.invalid = message ? "true" : "";
+            el.setAttribute("aria-invalid", message ? "true" : "false");
         }
     };
 
@@ -55,12 +67,16 @@ export function UncontrolledForm() {
             return;
         }
 
-        form.reset();
+        setSubmitted(true);
+    };
+
+    const toggleVisibility = (field: "password" | "confirmPassword") => {
+        setShowPassword((v) => ({ ...v, [field]: !v[field] }));
     };
 
     return (
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
-            <div className="flex flex-col">
+        <form ref={formRef} onSubmit={handleSubmit} noValidate>
+            <div>
                 <label htmlFor="u-username">Username*</label>
                 <input
                     id="u-username"
@@ -69,7 +85,7 @@ export function UncontrolledForm() {
                     required
                 />
             </div>
-            <div className="flex flex-col">
+            <div>
                 <label htmlFor="u-email">Email*</label>
                 <input
                     id="u-email"
@@ -79,25 +95,55 @@ export function UncontrolledForm() {
                     required
                 />
             </div>
-            <div className="flex flex-col">
+            <div>
                 <label htmlFor="u-password">Password*</label>
-                <input
-                    id="u-password"
-                    name="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    required
-                />
+                <div className="relative">
+                    <input
+                        id="u-password"
+                        name="password"
+                        type={showPassword.password ? "text" : "password"}
+                        placeholder="Enter your password"
+                        required
+                        className="pr-12"
+                    />
+                    <button
+                        type="button"
+                        aria-label={showPassword.password ? "Hide password" : "Show password"}
+                        onClick={() => toggleVisibility("password")}
+                        className="absolute inset-y-0 right-3 flex items-center"
+                    >
+                        <img
+                            src={showPassword.password ? shownIcon : hiddenIcon}
+                            alt=""
+                            className="h-5 w-5"
+                        />
+                    </button>
+                </div>
             </div>
-            <div className="flex flex-col">
+            <div>
                 <label htmlFor="u-confirm-password">Confirm Password*</label>
-                <input
-                    id="u-confirm-password"
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="Confirm your password"
-                    required
-                />
+                <div className="relative">
+                    <input
+                        id="u-confirm-password"
+                        name="confirmPassword"
+                        type={showPassword.confirmPassword ? "text" : "password"}
+                        placeholder="Confirm your password"
+                        required
+                        className="pr-12"
+                    />
+                    <button
+                        type="button"
+                        aria-label={showPassword.confirmPassword ? "Hide password" : "Show password"}
+                        onClick={() => toggleVisibility("confirmPassword")}
+                        className="absolute inset-y-0 right-3 flex items-center"
+                    >
+                        <img
+                            src={showPassword.confirmPassword ? shownIcon : hiddenIcon}
+                            alt=""
+                            className="h-5 w-5"
+                        />
+                    </button>
+                </div>
             </div>
 
             <label className="flex items-center gap-2">
@@ -105,9 +151,13 @@ export function UncontrolledForm() {
                 I agree to the terms and conditions.
             </label>
 
-            <button type="submit">Register</button>
+            <button type="submit" className="block mx-auto bg-[#00AE1C] text-white w-full px-4 py-2 rounded-md">Register</button>
 
-            <p className="text-sm text-slate-500"> *Required fields</p>
+            {submitted && (
+                <p className="text-green-500 text-sm text-center">Form submitted successfully.</p>
+            )}
+
+            <p className="text-sm text-white"> *Required fields</p>
         </form>
     );
 }

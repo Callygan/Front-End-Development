@@ -4,6 +4,19 @@ label {
     @apply text-sm font-medium;
 }
 
-input {
-    @apply border-0 border-b border-slate-300 bg-transparent focus:border-b-2 focus:border-blue-500 focus:outline-none;
+input:not([type="checkbox"]) {
+    @apply w-full py-1 border-0 border-b border-[#737373] bg-transparent focus:border-b-2 focus:border-[#FFFFFF] focus:outline-none;
+}
+
+input[data-invalid="true"],
+input[aria-invalid="true"] {
+    @apply border-b-red-500 focus:border-b-red-500;
+}
+
+form {
+    @apply p-12 bg-[#454545] rounded-lg shadow w-sm space-y-5;
+}
+
+form > div {
+    @apply flex flex-col;
 }
