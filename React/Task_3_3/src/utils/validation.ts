@@ -8,11 +8,12 @@ export type FormValues = {
 
 export type FormErrors = Partial<Record<keyof FormValues, string>>;
 
+// Basic synchronous validation for both controlled and uncontrolled forms
 export const validate = (values: FormValues): FormErrors => {
     const errors: FormErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const username = values.username.trim();
+    const username = values.username.trim(); // strip surrounding spaces
     if (!username) {
         errors.username = "Username is required";
     } else if (!/^[A-Za-z0-9]+$/.test(username)) {

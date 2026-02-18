@@ -9,9 +9,9 @@ export default function App() {
                     <h2 className="text-3xl font-semibold mb-2">Uncontrolled Components</h2>
                     <UncontrolledForm />
                 </section>
-                    <section className="flex flex-col justify-center items-center gap-4">
+                <section className="flex flex-col justify-center items-center gap-4">
                     <h2 className="text-3xl font-semibold mb-2">Controlled Components</h2>
-                <ControlledForm />
+                    <ControlledForm />
                 </section>
             </div>
         </main>

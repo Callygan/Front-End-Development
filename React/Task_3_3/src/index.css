@@ -4,6 +4,10 @@ label {
     @apply text-sm font-medium;
 }
 
+input[type="checkbox"] {
+    accent-color: #00AE1C;
+}
+
 input:not([type="checkbox"]) {
     @apply w-full py-1 border-0 border-b border-[#737373] bg-transparent focus:border-b-2 focus:border-[#FFFFFF] focus:outline-none;
 }
@@ -14,7 +18,7 @@ input[aria-invalid="true"] {
 }
 
 form {
-    @apply p-12 bg-[#454545] rounded-lg shadow w-sm space-y-5;
+    @apply p-12 pb-2 bg-[#454545] rounded-lg shadow w-sm space-y-1;
 }
 
 form > div {
