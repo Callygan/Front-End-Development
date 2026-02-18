@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
+import type { ChangeEvent } from "react";
 import type * as React from "react";
 import hiddenIcon from "../../assets/images/hidden.png";
 import shownIcon from "../../assets/images/shown.png";
 import { validate } from "../../utils/validation";
-import type { FormValues } from "../../utils/validation";
+import type { FormValues, FormErrors } from "../../utils/validation";
 
 export function UncontrolledForm() {
     const formRef = useRef<HTMLFormElement | null>(null);
@@ -12,8 +13,9 @@ export function UncontrolledForm() {
         confirmPassword: false,
     });
     const [submitted, setSubmitted] = useState(false);
+    const [errors, setErrors] = useState<FormErrors>({});
 
-    //Delete the error message when the user changes the input
+    // Clear all validity flags and custom errors on the whole form
     const clearValidity = () => {
         const form = formRef.current;
         if (!form) return;
@@ -27,7 +29,23 @@ export function UncontrolledForm() {
         });
     };
 
-    //Asociate the error message with the input field (HTML5 constraint validation API)
+    // Clear a single field validity + tracked error and hide success state
+    const clearFieldValidity = (field: keyof FormValues, target?: HTMLInputElement | null) => {
+        const el = target ?? (formRef.current?.elements.namedItem(field) as HTMLInputElement | null);
+        if (el && "setCustomValidity" in el) {
+            el.setCustomValidity("");
+            el.dataset.invalid = "";
+            el.setAttribute("aria-invalid", "false");
+        }
+        setErrors((prev) => {
+            const next = { ...prev };
+            delete next[field];
+            return next;
+        });
+        if (submitted) setSubmitted(false);
+    };
+
+    // Associate the error message with the input field (HTML5 constraint validation API)
     const setFieldError = (name: keyof FormValues, message?: string) => {
         const form = formRef.current;
         if (!form) return;
@@ -39,12 +57,14 @@ export function UncontrolledForm() {
         }
     };
 
+    // Handle submit using FormData, sync custom validity, and block on errors
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = formRef.current;
         if (!form) return;
 
         clearValidity();
+        setErrors({});
 
         const fd = new FormData(form);
         const values: FormValues = {
@@ -56,8 +76,9 @@ export function UncontrolledForm() {
         };
 
         const errors = validate(values);
+        setErrors(errors);
 
-        //Set the error messages for each field
+        // Set the error messages for each field
         (Object.keys(errors) as Array<keyof FormValues>).forEach((field) => {
             setFieldError(field, errors[field]);
         });
@@ -68,8 +89,16 @@ export function UncontrolledForm() {
         }
 
         setSubmitted(true);
+        setErrors({});
     };
 
+    // Clear errors/validity on each change for the edited field
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const field = event.target.name as keyof FormValues;
+        clearFieldValidity(field, event.target);
+    };
+
+    // Toggle password/confirm visibility
     const toggleVisibility = (field: "password" | "confirmPassword") => {
         setShowPassword((v) => ({ ...v, [field]: !v[field] }));
     };
@@ -83,7 +112,12 @@ export function UncontrolledForm() {
                     name="username"
                     placeholder="Enter your username"
                     required
+                    onChange={handleChange}
+                    aria-describedby="u-username-error"
                 />
+                <p id="u-username-error" className="text-red-600 text-xs min-h-[20px]" aria-live="polite">
+                    {errors.username ?? ""}
+                </p>
             </div>
             <div>
                 <label htmlFor="u-email">Email*</label>
@@ -93,7 +127,12 @@ export function UncontrolledForm() {
                     type="email"
                     placeholder="Enter your email"
                     required
+                    onChange={handleChange}
+                    aria-describedby="u-email-error"
                 />
+                <p id="u-email-error" className="text-red-600 text-sm min-h-[20px]" aria-live="polite">
+                    {errors.email ?? ""}
+                </p>
             </div>
             <div>
                 <label htmlFor="u-password">Password*</label>
@@ -105,6 +144,8 @@ export function UncontrolledForm() {
                         placeholder="Enter your password"
                         required
                         className="pr-12"
+                        onChange={handleChange}
+                        aria-describedby="u-password-error"
                     />
                     <button
                         type="button"
@@ -119,6 +160,9 @@ export function UncontrolledForm() {
                         />
                     </button>
                 </div>
+                <p id="u-password-error" className="text-red-600 text-sm min-h-[20px]" aria-live="polite">
+                    {errors.password ?? ""}
+                </p>
             </div>
             <div>
                 <label htmlFor="u-confirm-password">Confirm Password*</label>
@@ -130,6 +174,8 @@ export function UncontrolledForm() {
                         placeholder="Confirm your password"
                         required
                         className="pr-12"
+                        onChange={handleChange}
+                        aria-describedby="u-confirmPassword-error"
                     />
                     <button
                         type="button"
@@ -144,20 +190,29 @@ export function UncontrolledForm() {
                         />
                     </button>
                 </div>
+                <p id="u-confirmPassword-error" className="text-red-600 text-sm min-h-[20px]" aria-live="polite">
+                    {errors.confirmPassword ?? ""}
+                </p>
             </div>
 
-            <label className="flex items-center gap-2">
-                <input id="u-agreed" name="agreed" type="checkbox" />
-                I agree to the terms and conditions.
-            </label>
+            <div className="space-y-4">
+                <label className="flex items-center gap-2 m-0">
+                    <input id="u-agreed" name="agreed" type="checkbox" onChange={handleChange} aria-describedby="u-agreed-error" />
+                    I agree to the terms and conditions.
+                </label>
 
-            <button type="submit" className="block mx-auto bg-[#00AE1C] text-white w-full px-4 py-2 rounded-md">Register</button>
+                <p id="u-agreed-error" className="text-red-600 text-sm min-h-[25px] mb-2" aria-live="polite">
+                    {errors.agreed ?? ""}
+                </p>
 
-            {submitted && (
-                <p className="text-green-500 text-sm text-center">Form submitted successfully.</p>
-            )}
+                <button type="submit" className="block mx-auto bg-[#00AE1C] text-white w-full px-4 py-2 rounded-md hover:bg-[#009E1B] cursor-pointer">Register</button>
 
-            <p className="text-sm text-white"> *Required fields</p>
+                <p className="text-sm text-white"> *Required fields</p>
+
+                <p className="text-green-500 text-sm text-center min-h-[20px]" aria-live="polite">
+                    {submitted ? "Form submitted successfully." : "\u00a0"}
+                </p>
+            </div>
         </form>
     );
 }

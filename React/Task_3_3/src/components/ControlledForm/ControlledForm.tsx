@@ -37,6 +37,7 @@ export function ControlledForm() {
         const { name, type, value, checked } = e.target;
         const field = name as keyof FormValues;
 
+        // Update values and re-validate only the edited field
         setValues((v) => {
             const updated = { ...v, [field]: type === "checkbox" ? checked : value };
             const fieldErrors = validate(updated);
@@ -52,23 +53,39 @@ export function ControlledForm() {
         });
 
         setTouched((t) => ({ ...t, [field]: true }));
+        if (submitted) setSubmitted(false);
     };
 
     const handleBlur = (field: keyof FormValues) => {
         setTouched((t) => ({ ...t, [field]: true }));
     };
 
+    // Decide if an error should be shown for a field
     const showError = (field: keyof FormValues) => 
         errors[field] && (touched[field] || submitAttempted);
 
+    // Toggle password/confirm visibility
     const toggleVisibility = (field: "password" | "confirmPassword") => {
         setShowPassword((v) => ({ ...v, [field]: !v[field] }));
     };
 
+    const errorId = (field: keyof FormValues) => `c-${field}-error`;
+
+    // Build className for inputs based on error state
     const inputClass = (field: keyof FormValues, extra = "") => {
         const invalid = showError(field);
         const errorClasses = invalid ? "border-b-red-500 focus:border-b-red-500" : "";
         return `${extra} ${errorClasses}`.trim();
+    };
+
+    // Shared accessibility/error attrs for inputs
+    const invalidAttrs = (field: keyof FormValues) => {
+        const invalid = showError(field);
+        return {
+            "aria-invalid": invalid || undefined,
+            "data-invalid": invalid ? "true" : undefined,
+            "aria-describedby": errorId(field),
+        } as const;
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,7 +96,7 @@ export function ControlledForm() {
         setErrors(nextErrors);
 
         if (Object.keys(nextErrors).length) {
-            return;
+            return; // Block submit when errors exist
         }
 
         setSubmitted(true);
@@ -99,8 +116,9 @@ export function ControlledForm() {
                     placeholder="Enter your username"
                     required
                     className={inputClass("username")}
+                    {...invalidAttrs("username")}
                 />
-                <p className="text-red-600 text-xs">
+                <p id={errorId("username")} className="text-red-600 text-xs min-h-[20px]" aria-live="polite">
                     {showError("username") ? errors.username : ""}
                 </p>
             </div>
@@ -117,8 +135,9 @@ export function ControlledForm() {
                     placeholder="Enter your email"
                     required
                     className={inputClass("email")}
+                    {...invalidAttrs("email")}
                 />
-                <p className="text-red-600 text-sm min-h-[20px]">
+                <p id={errorId("email")} className="text-red-600 text-sm min-h-[20px]" aria-live="polite">
                     {showError("email") ? errors.email : ""}
                 </p>
             </div>
@@ -136,6 +155,7 @@ export function ControlledForm() {
                         placeholder="Enter your password"
                         required
                         className={inputClass("password", "pr-12")}
+                        {...invalidAttrs("password")}
                     />
                     <button
                         type="button"
@@ -150,7 +170,7 @@ export function ControlledForm() {
                         />
                     </button>
                 </div>
-                <p className="text-red-600 text-sm min-h-[20px]">
+                <p id={errorId("password")} className="text-red-600 text-sm min-h-[20px]" aria-live="polite">
                     {showError("password") ? errors.password : ""}
                 </p>
             </div>
@@ -168,6 +188,7 @@ export function ControlledForm() {
                         placeholder="Confirm your password"
                         required
                         className={inputClass("confirmPassword", "pr-12")}
+                        {...invalidAttrs("confirmPassword")}
                     />
                     <button
                         type="button"
@@ -182,28 +203,37 @@ export function ControlledForm() {
                         />
                     </button>
                 </div>
-
+                <p id={errorId("confirmPassword")} className="text-red-600 text-sm min-h-[20px]" aria-live="polite">
+                    {showError("confirmPassword") ? errors.confirmPassword : ""}
+                </p>
             </div>
 
-            <label className="flex items-center gap-2">
-                <input
-                    id="c-agreed"
-                    name="agreed"
-                    type="checkbox"
-                    checked={values.agreed}
-                    onChange={handleChange}
-                    onBlur={() => handleBlur("agreed")}
-                />
-                I agree to the terms and conditions.
-            </label>
+            <div className="space-y-4">
+                <label className="flex items-center gap-2 m-0">
+                    <input
+                        id="c-agreed"
+                        name="agreed"
+                        type="checkbox"
+                        checked={values.agreed}
+                        onChange={handleChange}
+                        onBlur={() => handleBlur("agreed")}
+                        {...invalidAttrs("agreed")}
+                    />
+                    I agree to the terms and conditions.
+                </label>
 
-            <button type="submit" className="block mx-auto bg-[#00AE1C] text-white w-full px-4 py-2 rounded-md">Register</button>
+                <p id={errorId("agreed")} className="text-red-600 text-sm min-h-[25px] mb-2" aria-live="polite">
+                    {showError("agreed") ? errors.agreed : ""}
+                </p>
 
-            {submitted && (
-                <p className="text-green-500 text-sm text-center">Form submitted successfully.</p>
-            )}
+                <button type="submit" className="block bg-[#00AE1C] text-white w-full px-4 py-2 rounded-md hover:bg-[#009E1B] cursor-pointer">Register</button>
 
-            <p className="text-sm text-white">*Required fields</p>
+                <p className="text-sm text-white">*Required fields</p>
+
+                <p className="text-green-500 text-sm text-center min-h-[10px]" aria-live="polite">
+                    {submitted ? "Form submitted successfully." : "\u00a0"}
+                </p>
+            </div>
         </form>
     );
 }
