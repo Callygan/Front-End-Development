@@ -7,6 +7,7 @@ interface GameState {
     board: Player[];
     currentTurn: Player;
     winner: Player | "draw" | null;
+    winningLine: number[] | null;
     score: {
         X: number;
         O: number;
@@ -17,6 +18,7 @@ const initialState: GameState = {
     board: Array(9).fill(null),
     currentTurn: null, // become X when game starts
     winner: null,
+    winningLine: null,
     score: {
         X: 0, 
         O: 0,
@@ -45,13 +47,19 @@ const gameSlice = createSlice({
             state.board = Array(9).fill(null);
             state.currentTurn = null;
             state.winner = null;
+            state.winningLine = null;
             state.score = { X: 0, O: 0 };
         },
 
-        setWinner(state, action: PayloadAction<Player | "draw">) {
-            state.winner = action.payload;
-            if (action.payload === "X" || action.payload === "O") {
-                state.score[action.payload]++;
+        setWinner(
+            state,
+            action: PayloadAction<{ winner: Player | "draw"; line: number[] | null }>
+        ) {
+            state.winner = action.payload.winner;
+            state.winningLine = action.payload.line;
+
+            if (action.payload.winner === "X" || action.payload.winner === "O") {
+                state.score[action.payload.winner]++;
             }
         },
 
@@ -59,6 +67,7 @@ const gameSlice = createSlice({
             state.board = Array(9).fill(null);
             state.currentTurn = null;
             state.winner = null;
+            state.winningLine = null;
         },
     },
 });

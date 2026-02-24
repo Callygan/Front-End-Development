@@ -9,20 +9,31 @@ interface Props {
 
 export default function PlayerPanel({ player }: Props) {
     const winner = useSelector((state: RootState) => state.game.winner);
+    const currentTurn = useSelector(
+        (state: RootState) => state.game.currentTurn
+    );
 
     let status = "Game started! Your turn.";
+    let statusClass = "text-yellow-400";
 
     if (winner === "draw") {
-        status= "Draw!";
+        status = "Draw!";
     } else if (winner === player) {
-        status = "You won!";
+        status = "You win!";
+        statusClass = "text-green-400";
     } else if (winner && winner !== player) {
-        status = "You lost!";
+        status="You lost!";
+        statusClass = "text-red-400";
+    } else if (currentTurn && currentTurn !== player) {
+        status= "Opponent's turn";
+        statusClass = "text-gray-300";
     }
 
     return (
-        <div className="bg-[#1a1a1a] rounded-lg p-4 flex flex-col gap-4">
-            <div className="text-center text-yellow-400 text-sm">{status}</div>
+        <div
+            className={`p-4 flex flex-col gap-4  bg-[#1a1a1a]`}
+        >
+            <div className={`text-center text-base ${statusClass}`}>{status}</div>
             <Board player={player} />
             <Chat player={player} />
         </div>
