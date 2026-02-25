@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import Board from "./Board";
-import Chat from "./Chat";
+import type { RootState } from "../../store/store";
+import Board from "../Board/Board.tsx";
+import Chat from "../Chat/Chat.tsx";
 
 interface Props {
     player: "X" | "O";
@@ -13,7 +13,7 @@ export default function PlayerPanel({ player }: Props) {
         (state: RootState) => state.game.currentTurn
     );
 
-    let status = "Game started! Your turn.";
+    let status = "Your turn.";
     let statusClass = "text-yellow-400";
 
     if (winner === "draw") {
@@ -22,16 +22,24 @@ export default function PlayerPanel({ player }: Props) {
         status = "You win!";
         statusClass = "text-green-400";
     } else if (winner && winner !== player) {
-        status="You lost!";
+        status = "You lost!";
         statusClass = "text-red-400";
-    } else if (currentTurn && currentTurn !== player) {
-        status= "Opponent's turn";
-        statusClass = "text-gray-300";
+    } else if (currentTurn === null) {
+        if (player === "X") {
+            status = "Game started! Your turn.";
+            statusClass = "text-yellow-400";
+        } else {
+            status = "Game started! Wait your opponent.";
+            statusClass = "text-yellow-400";
+        }
+    } else if (currentTurn !== player) {
+        status = "Opponent's turn.";
+        statusClass = "text-yellow-400";
     }
 
     return (
         <div
-            className={`p-4 flex flex-col gap-4  bg-[#1a1a1a]`}
+            className={`p-4 pb-0 flex flex-col gap-4  bg-[#111]`}
         >
             <div className={`text-center text-base ${statusClass}`}>{status}</div>
             <Board player={player} />

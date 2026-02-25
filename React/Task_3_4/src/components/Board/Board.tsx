@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import type { RootState } from "../store/store";
-import { makeMove, setWinner, clearBoardOnly } from "../store/gameSlice";
-import { checkWinner } from "../utils/checkWinner";
-import Cell from "./Cell";
+import type { RootState } from "../../store/store";
+import { makeMove, setWinner, clearBoardOnly } from "../../store/gameSlice";
+import { checkWinner } from "../../utils/checkWinner";
+import Cell from "../Cell/Cell.tsx";
 
 interface Props {
   player: "X" | "O";

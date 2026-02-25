@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface Message {
-    player: "X" | "O";
+export type ChatPlayer = "X" | "O";
+
+export interface Message {
+    player: ChatPlayer;
     text: string;
+    timestamp: number;
 }
 
 interface ChatState {
