@@ -1,34 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Header } from './components';
+import {
+  HomePage,
+  CartPage,
+  CheckoutLayout,
+  ContactStep,
+  ShipmentStep,
+  ConfirmStep,
+} from './pages';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+/**
+ * Root application component.
+ * Sets up routing: Home, Cart, and Checkout flow.
+ */
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <div className="min-h-screen bg-gray-100">
+        <Header />
 
-export default App
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/cart" element={<CartPage />} />
+
+            <Route path="/checkout" element={<CheckoutLayout />}>
+              <Route index element={<Navigate to="contact" replace />} />
+              <Route path="contact" element={<ContactStep />} />
+              <Route path="shipment" element={<ShipmentStep />} />
+              <Route path="confirm" element={<ConfirmStep />} />
+            </Route>
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
+  );
+};
+
+export default App;

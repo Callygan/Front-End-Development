@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom';
 import type { BreadcrumbsProps, Step } from '../../types';
 
+/** Checkout step definitions with their labels and routes. */
 const steps: Step[] = [
   { number: 1, name: 'Contact', path: '/checkout/contact' },
   { number: 2, name: 'Shipment', path: '/checkout/shipment' },
   { number: 3, name: 'Confirm', path: '/checkout/confirm' },
 ];
 
+/**
+ * Breadcrumbs component for the checkout flow.
+ * Displays the current step, completed steps, and allows navigation
+ * to previously completed steps.
+ */
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ currentStep, completedSteps = [] }) => {
   return (
     <nav className="mb-8">
@@ -14,7 +20,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ currentStep, completedSteps =
         {steps.map((step, index) => {
           const isCompleted = completedSteps.includes(step.number);
           const isCurrent = currentStep === step.number;
-          // Poate naviga doar la pașii anteriori sau completați
+          // Can navigate only to previous or already completed steps
           const isClickable = step.number < currentStep || isCompleted;
 
           return (

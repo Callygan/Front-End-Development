@@ -3,11 +3,12 @@ import { Breadcrumbs } from '../../../components';
 import type { CheckoutLocationState } from '../../../types';
 
 /**
- * Layout pentru checkout 
- * 
- * Outlet render the current step component (Contact, Shipment, Confirm) based on the route.
+ * Layout for the checkout flow.
+ * Renders the breadcrumbs and an Outlet that displays the current step
+ * component (Contact, Shipment, Confirm) based on the active route.
  */
 
+/** Determine the current checkout step number from the URL pathname. */
 const getCurrentStep = (pathname: string): number => {
   if (pathname.includes('contact')) return 1;
   if (pathname.includes('shipment')) return 2;
