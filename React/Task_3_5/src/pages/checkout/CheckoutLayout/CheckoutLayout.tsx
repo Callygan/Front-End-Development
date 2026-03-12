@@ -1,5 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
-import { Breadcrumbs } from '../../../components';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import type { CheckoutLocationState } from '../../../types';
 
 /**
@@ -27,13 +26,46 @@ const CheckoutLayout: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
-        {/* Breadcrumbs */}
-        <Breadcrumbs currentStep={currentStep} completedSteps={completedSteps} />
-        
+        {currentStep !== 3 && (
+          <>
+            {/* Breadcrumbs - same style as CartPage */}
+            <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
+              {currentStep === 0 ? (
+                <span className="text-emerald-600 font-medium">Cart</span>
+              ) : (
+                <Link to="/cart" className="text-emerald-600 font-medium hover:text-[#243573] hover:underline cursor-pointer">Cart</Link>
+              )}
+              <span>›</span>
+              {currentStep === 1 ? (
+                <span className="text-emerald-600 font-medium">Contact information</span>
+              ) : completedSteps.includes(1) ? (
+                <Link to="/checkout/contact" className="text-emerald-600 font-medium hover:text-[#243573] hover:underline cursor-pointer">
+                  Contact information
+                </Link>
+              ) : (
+                <span>Contact information</span>
+              )}
+              <span>›</span>
+              {currentStep === 2 ? (
+                <span className="text-emerald-600 font-medium">Shipment information</span>
+              ) : completedSteps.includes(2) ? (
+                <Link to="/checkout/shipment" state={state} className="text-emerald-600 font-medium hover:text-[#243573] hover:underline cursor-pointer">
+                  Shipment information
+                </Link>
+              ) : (
+                <span>Shipment information</span>
+              )}
+            </div>
+
+            <h1 className="text-3xl font-bold text-gray-900 mb-6">
+              {currentStep === 1 && 'Contact information'}
+              {currentStep === 2 && 'Shipment information'}
+            </h1>
+          </>
+        )}
+
         {/* Current step content */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </div>
   );

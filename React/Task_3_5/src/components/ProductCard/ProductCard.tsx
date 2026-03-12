@@ -53,10 +53,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <button
           onClick={handleAddToCart}
-          className={`w-full text-white text-xs font-medium py-2 px-3 rounded transition-colors flex items-center justify-center gap-1 ${
+          className={`w-full text-white text-xs font-medium py-2 px-3 rounded transition-colors flex items-center justify-center gap-1 cursor-pointer ${
             added
-              ? 'bg-green-500 hover:bg-green-600'
-              : 'bg-green-500 hover:bg-green-600'
+              ? 'bg-green-600 hover:bg-green-700'
+              : 'bg-green-600 hover:bg-green-700'
           }`}
         >
           {added ? (

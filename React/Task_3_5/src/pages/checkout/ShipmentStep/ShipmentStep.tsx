@@ -23,6 +23,7 @@ const ShipmentStep: React.FC = () => {
     formState: { errors },
   } = useForm<ShipmentFormData>({
     resolver: yupResolver(shipmentSchema),
+    mode: 'onTouched',
     defaultValues: state?.shipmentData || {
       address: '',
       city: '',
@@ -42,18 +43,17 @@ const ShipmentStep: React.FC = () => {
   };
 
   const inputClass = (hasError: boolean) =>
-    `w-full px-3 py-2 border rounded text-sm focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none transition-colors ${
+    `w-full px-3 py-2 border-0 border-b-2 text-sm focus:ring-0 focus:border-[#243573] outline-none transition-colors ${
       hasError ? 'border-red-400' : 'border-gray-300'
     }`;
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Shipment information</h2>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
         {/* Address */}
         <div>
-          <label className="block text-xs font-medium text-red-500 mb-1">
+          <label className="block text-xs font-medium text-[#243573] mb-1">
             Address (No. &amp; Street)*
           </label>
           <input
@@ -69,19 +69,19 @@ const ShipmentStep: React.FC = () => {
 
         {/* Apartment */}
         <div>
-          <label className="block text-xs font-medium text-gray-600 mb-1">
+          <label className="block text-xs font-medium text-[#243573] mb-1">
             Apartment suite, etc. (optional)
           </label>
           <input
             type="text"
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500 outline-none"
+            className="w-full px-3 py-2 border-0 border-b-2 border-gray-300 text-sm focus:ring-0 focus:border-[#243573] outline-none"
             placeholder="Enter your apartment information"
           />
         </div>
 
         {/* City */}
         <div>
-          <label className="block text-xs font-medium text-red-500 mb-1">
+          <label className="block text-xs font-medium text-[#243573] mb-1">
             City*
           </label>
           <input
@@ -98,36 +98,36 @@ const ShipmentStep: React.FC = () => {
         {/* Country / State / ZIP in a row */}
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">
-              Country/region
+            <label className="block text-xs font-medium text-[#243573] mb-1">
+              Country/Region*
             </label>
             <select
               {...register('country')}
-              className={`w-full px-3 py-2 border rounded text-sm focus:ring-1 focus:ring-green-500 outline-none ${
+              className={`w-full px-3 py-2 border-0 border-b-2 text-sm focus:ring-0 focus:border-[#243573] outline-none ${
                 errors.country ? 'border-red-400' : 'border-gray-300'
               }`}
             >
               <option value="">Select your country/region</option>
               <option value="United States">United States</option>
-              <option value="Romania">Romania</option>
-              <option value="Germany">Germany</option>
-              <option value="France">France</option>
-              <option value="United Kingdom">United Kingdom</option>
             </select>
             {errors.country && (
               <p className="mt-1 text-xs text-red-500">{errors.country.message}</p>
             )}
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">
-              State
+            <label className="block text-xs font-medium text-[#243573] mb-1">
+              State*
             </label>
-            <select className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500 outline-none">
+            <select className="w-full px-3 py-2 border-0 border-b-2 border-gray-300 text-sm focus:ring-0 focus:border-[#243573] outline-none">
               <option value="">Select your state</option>
+              <option value="Texas">Texas</option>
+              <option value="California">California</option>
+              <option value="New York">New York</option>
+              <option value="Florida">Florida</option>
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-red-500 mb-1">
+            <label className="block text-xs font-medium text-[#243573] mb-1">
               ZIP code*
             </label>
             <input
@@ -142,11 +142,13 @@ const ShipmentStep: React.FC = () => {
           </div>
         </div>
 
+        </div>
+
         {/* Submit Order button */}
         <div className="pt-4">
           <button
             type="submit"
-            className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-8 rounded transition-colors text-sm"
+            className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-8 rounded transition-colors text-sm cursor-pointer"
           >
             Submit order
           </button>
