@@ -1,16 +1,16 @@
 import type { LinkProps } from './Link.types'
 
-const baseStyle = 'inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 text-green-500 underline hover:text-green-600 active:text-green-700'
-
-const disabledStyle = 'opacity-50 cursor-not-allowed pointer-events-none'
+const baseStyle = 'inline-flex items-center gap-2 text-sm font-medium transition-all duration-200'
+const activeStyle = 'text-green-500 hover:underline hover:text-green-600 active:text-green-400 cursor-pointer'
+const disabledStyle = 'text-[#575D58] cursor-not-allowed pointer-events-none'
 
 export const Link = ({ disabled, href, children, onClick }: LinkProps) => {
     return (
-        <a 
-            className={`${baseStyle} ${disabled ? disabledStyle : 'cursor-pointer'}`}
-            href={href}
+        <a
+            className={`${baseStyle} ${disabled ? disabledStyle : activeStyle}`}
+            href={disabled ? undefined : href}
             aria-disabled={disabled}
-            onClick={onClick}
+            onClick={disabled ? (e) => e.preventDefault() : onClick}
         >
             {children}
         </a>

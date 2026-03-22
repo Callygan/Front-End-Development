@@ -3,7 +3,7 @@ export type ButtonVariant = 'primary' | 'secondary'
 export interface ButtonProps {
     variant?: ButtonVariant
     disabled?: boolean
-    icon?: React.ReactNode
+    icon?: boolean
     children: React.ReactNode
     onClick?: () => void
 }
