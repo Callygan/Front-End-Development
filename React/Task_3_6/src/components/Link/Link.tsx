@@ -1,6 +1,6 @@
 import type { LinkProps } from './Link.types'
 
-const baseStyle = 'inline-flex items-center gap-2 text-sm font-medium transition-all duration-200'
+const baseStyle = 'text-sm font-medium transition-all duration-200'
 const activeStyle = 'text-green-500 hover:underline hover:text-green-600 active:text-green-400 cursor-pointer'
 const disabledStyle = 'text-[#575D58] cursor-not-allowed pointer-events-none'
 

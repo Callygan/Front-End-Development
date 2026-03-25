@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import { useClickOutside } from '../../hooks/useClickOutside'
 import type { SelectMenuProps } from './SelectMenu.types'
 
 export const SelectMenu = ({ label, options, selectedValue, onChange }: SelectMenuProps) => {
     const [isOpen, setIsOpen] = useState(false)
+    const ref = useClickOutside(() => setIsOpen(false))
 
     return (
-        <div className="w-24 relative">
+        <div ref={ref} className="w-24 relative">
             {label && (
                 <p className="text-sm font-medium text-gray-700 mb-1">{label}</p>
             )}
@@ -18,7 +20,7 @@ export const SelectMenu = ({ label, options, selectedValue, onChange }: SelectMe
             </div>
 
             {isOpen && (
-                <div className="absolute top-full left-0 w-full border border-gray-300 rounded-lg mt-1 bg-white shadow-md z-10">
+                <div className="absolute top-15 left-0 w-full border border-gray-300 rounded-lg mt-1 bg-white shadow-md z-10">
                     {options.map((option) => (
                         <div
                             key={option.value}

@@ -1,6 +1,6 @@
 export interface ColorPickerProps {
     label?: string
-    colors: string[] // Array of color hex codes or names
-    selectedColor: string // Currently selected color
+    colors: string[]
+    selectedColor: string
     onChange?: (color: string) => void
 }

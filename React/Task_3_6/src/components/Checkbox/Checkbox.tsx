@@ -1,6 +1,6 @@
 import type {CheckboxProps } from './Checkbox.types'
 
-const baseStyle = 'flex items-center gap-2'
+const baseStyle = 'flex gap-2'
 
 export const Checkbox = ({ label, checked, onChange }: CheckboxProps) => {
     return (
@@ -9,7 +9,7 @@ export const Checkbox = ({ label, checked, onChange }: CheckboxProps) => {
                 type="checkbox"
                 checked={checked}
                 onChange={onChange}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="w-4 h-4 text-white border-gray-300 accent-emerald-600"
             />
             {label && <span className="text-sm text-gray-700">{label}</span>}
         </div>

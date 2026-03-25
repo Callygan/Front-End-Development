@@ -21,6 +21,11 @@ export const DatePicker = ({ value, onChange }: DatePickerProps) => {
         setCurrentDate(newDate)
     }
 
+    const handleDayClick = (day: number) => {
+        const selected = new Date(year, currentDate.getMonth(), day)
+        onChange && onChange(selected)
+    }
+
     const daysInMonth = new Date(year, currentDate.getMonth() + 1, 0).getDate()
     const firstDayOfMonth = new Date(year, currentDate.getMonth(), 1).getDay()
 
@@ -63,10 +68,7 @@ export const DatePicker = ({ value, onChange }: DatePickerProps) => {
                     return (
                         <div
                             key={day}
-                            onClick={() => {
-                                const selected = new Date(year, currentDate.getMonth(), day)
-                                onChange && onChange(selected)
-                            }}
+                            onClick={() => handleDayClick(day)}
                             className={`
                                 text-center text-sm py-1 rounded-full cursor-pointer
                                 ${isSelected

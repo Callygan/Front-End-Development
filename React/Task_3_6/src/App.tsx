@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { Button } from './components/Button/Button'
 import { Link } from './components/Link/Link'
 import { Input } from './components/Input/Input'
+import { Checkbox } from './components/Checkbox/Checkbox'
 import { SelectMenu } from './components/SelectMenu/SelectMenu'
+import { TextArea } from './components/TextArea/TextArea'
 import { Dropdown } from './components/Dropdown/Dropdown'
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
 import { Modal } from './components/Modal/Modal'
 import { DatePicker } from './components/DatePicker/DatePicker'
 import { Toast } from './components/Toast/Toast'
+import { Icon } from './components/Icons/Icons'
+import type { IconName } from './components/Icons/Icons.type'
 
 
 function App() {
@@ -17,9 +21,10 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [show, setShow] = useState(false)
+  const allIcons: IconName[] = ['arrowDown', 'arrowLeft', 'arrowRight', 'checked', 'close', 'delete', 'edit', 'eyeLine', 'eyeClose', 'google', 'playBlack', 'playWhite', 'checkboxFill', 'checkboxLine', 'colorSelected', 'color']
 
   return (
-    <div className="flex flex-wrap gap-6 p-8">
+    <div className="flex flex-wrap items-start gap-12 p-12">
       {/* Buttons */}
       <div className="flex gap-2">
         <div className="flex flex-col gap-2">
@@ -41,19 +46,58 @@ function App() {
       </div>
 
       {/* Links */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         <Link href="#">Link</Link>
         <Link disabled href="#">Link</Link>
       </div>
 
-      <div className="flex gap-4">
-        <Input label="Username*" placeholder="Enter your username" />
-        <Input label="Password*" type="password" placeholder="Enter your password" />
-        <Input label="Username*" value="QuantumSphinx23" error="Error message" onChange={() => {}} />
-        <Input label="Username*" disabled value="QuantumSphinx23" onChange={() => {}} />
+      {/* Inputs */}
+      <div className="flex gap-6">
+        <div className="flex flex-col gap-4">
+          <Input label="Username*" placeholder="Enter your username" />
+          <Input label="Username*" disabled value="QuantumSphinx23" onChange={() => {}} />
+          <Input label="Username*" value="QuantumSphinx23" error="Error message" onChange={() => {}} />
+        </div>
+        <div className="flex flex-col gap-4">
+          <Input label="Password*" type="password" placeholder="Enter your password" />
+          <Input label="Password*" disabled value="QuantumSphinx23" onChange={() => {}} />
+          <Input label="Password*" type="password" value="QuantumSphinx23" error="Error message" onChange={() => {}} />
+        </div>
       </div>
 
-      <div className="p-8 flex gap-4">
+      {/* Checkbox */}
+      <div className="flex gap-8">
+        <Checkbox checked />
+        <Checkbox />
+      </div>
+
+      {/* Checkbox with Label*/}
+      <div className="flex flex-col gap-6">
+        <Checkbox checked label="Text" />
+        <Checkbox label="Text" />
+      </div>
+
+      {/* Icons */}
+      <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap w-64 gap-4 border border-gray-200 rounded-lg p-4">
+              {allIcons.map((name) => (
+                  <div key={name} className="flex flex-col items-center gap-1">
+                      <Icon name={name} size={16} />
+                  </div>
+              ))}
+          </div>
+      </div>
+
+      {/* Modal */}
+      <div className="flex items-start">
+        <button className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer bg-white text-gray-700 border border-gray-300 hover:bg-[#DEDFE5]" onClick={() => setIsOpen(true)}>Open Modal </button>
+        <Modal title="Title" isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. LoremLorem ipsum dolor sit amet consectetur adipiscing elit. LoremLorem ipsum dolor sit amet consectetur adipiscing elit. Lorem </p>
+        </Modal>
+      </div>
+
+      {/* Select Menu */}
+      <div>
         <SelectMenu
           label="Time"
           selectedValue={time}
@@ -68,7 +112,19 @@ function App() {
         />
       </div>
 
-      <div className="p-8 flex gap-4">
+      {/* Text Area */}
+      <div>
+        <TextArea label="Description" placeholder="Enter your description" />
+      </div>
+
+      {/* Date Picker */}
+      <div>
+        <DatePicker value={date} onChange={setDate} />
+        {date && <p className="mt-4 text-sm">Selected: {date.toLocaleDateString()}</p>}
+      </div>
+      
+      {/* Dropdown */}
+      <div>
         <Dropdown
           label=""
           selectedValue={dropdownValue}
@@ -79,30 +135,20 @@ function App() {
           ]}
         />
       </div>
-
-      <div className="p-8 flex gap-4">
+      
+      {/* Color Picker */}
+      <div>
         <ColorPicker
           label="Colour"
           selectedColor={color}
           onChange={setColor}
-          colors={['#FF0000', '#FF6B00', '#FFD700', '#00CC00', '#0000FF', '#8B00FF', '#FF69B4', '#000000', '#FFFFFF']}
+          colors={[ '#9F2957', '#D90056', '#E25D33', '#DFC45A', '#B8C42F', '#16AF6E', '#429488', '#397E49', '#439BDF', '#4254AF', '#6C7AC4', '#8332A4' ]}
         />
       </div>
 
-      <div className="p-8 flex gap-4">
-        <button onClick={() => setIsOpen(true)}>Deschide Modal</button>
-        <Modal title="Title" isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. LoremLorem ipsum dolor sit amet consectetur adipiscing elit. LoremLorem ipsum dolor sit amet consectetur adipiscing elit. Lorem </p>
-        </Modal>
-      </div>
-
-      <div className="p-8">
-        <DatePicker value={date} onChange={setDate} />
-        {date && <p className="mt-4 text-sm">Selected: {date.toLocaleDateString()}</p>}
-      </div>
-
-      <div className="p-8">
-            <button onClick={() => setShow(true)}>Delete Event</button>
+      {/* Toast */}
+      <div>
+            <button className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer bg-white text-gray-700 border border-gray-300 hover:bg-[#DEDFE5]" onClick={() => setShow(true)}>Delete Event</button>
             {show && <Toast message="Event deleted" onClose={() => setShow(false)} />}
       </div>
     </div>

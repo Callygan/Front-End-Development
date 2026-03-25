@@ -1,12 +1,14 @@
 import { useState } from 'react'
+import { useClickOutside } from '../../hooks/useClickOutside'
 import type { DropdownProps } from './Dropdown.types'
 import arrowIcon from '../../assets/icons/arrow-down-icon.png'
 
 export const Dropdown = ({ label, options, selectedValue, onChange }: DropdownProps) => {
     const [isOpen, setIsOpen] = useState(false)
+    const ref = useClickOutside(() => setIsOpen(false))
 
     return (
-        <div className="w-24 relative">
+        <div className="w-24 relative" ref={ref}>
             {label && (
                 <p className="text-sm font-medium text-gray-700 mb-1">{label}</p>
             )}
@@ -24,7 +26,7 @@ export const Dropdown = ({ label, options, selectedValue, onChange }: DropdownPr
             </div>
 
             {isOpen && (
-                <div className="absolute top-full left-0 w-full border border-gray-300 rounded-lg mt-1 bg-white shadow-md z-10">
+                <div className="absolute top-9 left-0 w-full border border-gray-300 rounded-lg mt-1 bg-white shadow-md z-10">
                     {options.map((option) => (
                         <div
                             key={option.value}
