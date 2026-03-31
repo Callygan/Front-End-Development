@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  display: contents;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background: #f5f6f8;
+  padding: 50px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 40px 16px;
+}
+
+.todo-app {
+  max-width: 600px;
+  width: 100%;
+}
+
+.todo-header {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 7px;
+  border-bottom: 2px solid #dedfe5;
+}
+
+.todo-header input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  font-size: 14px;
+}
+
+.todo-header input:focus {
+  border: none;
+  outline: none;
+}
+
+.todo-header button {
+  padding: 10px 16px;
+  background: #00ae1c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.todo-header button:hover {
+  background: #009018;
+}
+
+#todoList {
+  max-width: 600px;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#todoList li {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#todoList li:hover {
+  background-color: #efefef;
+}
+
+#todoList li.completed .text {
+  text-decoration: line-through;
+}
+
+.text {
+  flex: 1;
+  outline: none;
+  border-left: 2px solid #dedfe5;
+  padding-left: 10px;
+  background: transparent;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  font-size: 14px;
+}
+
+.text:focus {
+  outline: none;
+  border-left: 2px solid #00ae1c;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.actions button img {
+  width: 18px;
+  height: 18px;
+}
+
+.clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  max-width: 300px;
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.clear-btn:hover {
+  background-color: #d1d1d1;
+  transition: all 0.5s ease;
+}
+
+.clear-btn img {
+  width: 18px;
+  height: 18px;
+}
